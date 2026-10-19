@@ -1,0 +1,14 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+    "pageOrder":  [
+                      "p0_cover",
+                      "p1_title_fights",
+                      "p2_who_can_win",
+                      "p3_pace",
+                      "p4_operations",
+                      "p5_rewards",
+                      "p6_team_stories",
+                      "p7_verdict"
+                  ],
+    "activePageName":  "p0_cover"
+}

@@ -1,0 +1,29 @@
+table dim_constructor
+	lineageTag: f9f954d4-cf80-4f7e-9426-3aa277cdc4b2
+
+	column constructor_id
+		dataType: string
+		lineageTag: ca151cb9-5cf7-4347-b477-737fe29067b6
+		summarizeBy: none
+		sourceColumn: constructor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_name
+		dataType: string
+		lineageTag: bf74d02f-8969-4ef0-a160-48985ec50019
+		summarizeBy: none
+		sourceColumn: constructor_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_constructor = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\dim_constructor.csv"), [Delimiter=",", Columns=2, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"constructor_id", type text}, {"constructor_name", type text}})
+				in
+				    #"Changed Type"
+

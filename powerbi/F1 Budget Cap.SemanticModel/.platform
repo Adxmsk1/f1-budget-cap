@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "F1 Budget Cap"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "347ba80d-eac2-49f9-8632-195483ad1ed6"
+  }
+}

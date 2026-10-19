@@ -1,0 +1,37 @@
+table dim_driver
+	lineageTag: a6c7d757-c8f0-4d69-9607-ad56771844ae
+
+	column driver_id
+		dataType: string
+		lineageTag: 6a7bee2d-daa1-4055-95b3-c3989b43be79
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_code
+		dataType: string
+		lineageTag: f06be72c-93f6-4b5d-9dec-fce5c6995b2b
+		summarizeBy: none
+		sourceColumn: driver_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_name
+		dataType: string
+		lineageTag: bdbab96b-1304-4451-a05f-235fb3d12dfc
+		summarizeBy: none
+		sourceColumn: driver_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_driver = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\dim_driver.csv"), [Delimiter=",", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"driver_id", type text}, {"driver_code", type text}, {"driver_name", type text}})
+				in
+				    #"Changed Type"
+

@@ -1,0 +1,406 @@
+table fact_constructor_standings
+	lineageTag: 4ab92a86-f0d2-4093-a551-15f81f99659d
+
+	measure 'Has Standings' = IF(CALCULATE(COUNTROWS(fact_constructor_standings), REMOVEFILTERS(dim_constructor)) > 0, 1)
+		lineageTag: e553c053-59bf-4fd6-a4f9-8ec4c97ec071
+
+	measure 'Selection Seasons Text' =
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR mn = MIN(dim_season[season])
+			VAR mx = MAX(dim_season[season])
+			RETURN SWITCH(TRUE(),
+			    n = 1, "the " & mn & " season",
+			    n = 13, "all 13 seasons from 2014 to 2026",
+			    n = mx - mn + 1, "the " & n & " seasons from " & mn & " to " & mx,
+			    n & " selected seasons between " & mn & " and " & mx)
+		lineageTag: 97f7cc38-16d0-40f7-b85b-aabe48c17fc0
+
+	measure 'Champion' = CALCULATE(FIRSTNONBLANK(fact_constructor_standings[constructor_name], 1), fact_constructor_standings[position] = 1, REMOVEFILTERS(dim_constructor))
+		lineageTag: c8dda7ff-3e45-48a4-be5b-244128f95a50
+
+	measure 'Runner Up' = CALCULATE(FIRSTNONBLANK(fact_constructor_standings[constructor_name], 1), fact_constructor_standings[position] = 2, REMOVEFILTERS(dim_constructor))
+		lineageTag: 31f50d8e-6e6a-4bfa-ae24-716d993a893c
+
+	measure 'Era Colour' = IF(SELECTEDVALUE(dim_season[is_post_cap]) = TRUE(), "#E10600", "#A7ADB5")
+		lineageTag: 35305249-88cc-4a91-a13d-e9408073368f
+
+	measure 'Era Colour Teal' = IF(SELECTEDVALUE(dim_season[is_post_cap]) = TRUE(), "#15151E", "#A7ADB5")
+		lineageTag: 07898bb4-d98d-4088-b157-a8132b638601
+
+	measure 'Team Colour' = SWITCH(SELECTEDVALUE(dim_constructor[constructor_id]), "mercedes", "#27F4D2", "ferrari", "#E8002D", "red_bull", "#3671C6", "mclaren", "#FF8000", "aston_martin", "#229971", "alpine", "#0093CC", "williams", "#005AFF", "rb", "#6692FF", "sauber", "#2BB24C", "haas", "#B6BABD", "audi", "#6E6E6E", "cadillac", "#3A3A3A", "alphatauri", "#2B4562", "alfa", "#B12039", "toro_rosso", "#469BFF", "racing_point", "#F596C8", "force_india", "#F596C8", "renault", "#FFD800", "lotus_f1", "#B59410", "caterham", "#0B6B3A", "manor", "#6E0000", "marussia", "#6E0000", "#A7ADB5")
+		lineageTag: 904e7b23-555c-4975-b3a2-96140f12a260
+
+	measure 'Title Margin (pts)' =
+			VAR t = CALCULATETABLE(fact_constructor_standings, REMOVEFILTERS(dim_constructor))
+			VAR p1 = MAXX(FILTER(t, fact_constructor_standings[position] = 1), fact_constructor_standings[points])
+			VAR p2 = MAXX(FILTER(t, fact_constructor_standings[position] = 2), fact_constructor_standings[points])
+			RETURN IF(HASONEVALUE(dim_season[season]), p1 - p2)
+		formatString: #,0
+		lineageTag: 4edc63a8-c44c-45ad-8819-57959efd5622
+
+	measure 'Avg Title Margin' = AVERAGEX(VALUES(dim_season[season]), [Title Margin (pts)])
+		formatString: #,0
+		lineageTag: ac849d04-731a-4eca-8d06-214af3ff7f43
+
+	measure 'Pre-Cap Avg Title Margin' = CALCULATE([Avg Title Margin], dim_season[is_post_cap] = FALSE())
+		formatString: #,0
+		lineageTag: f99828a1-92a2-4513-b1de-2fe4f73c75f8
+
+	measure 'Post-Cap Avg Title Margin' = CALCULATE([Avg Title Margin], dim_season[is_post_cap] = TRUE())
+		formatString: #,0
+		lineageTag: 147d8344-7ab2-4bae-b17a-5e3125e1fcd5
+
+	measure 'Closest Title Fight' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "m", [Title Margin (pts)], "c", [Champion]), NOT ISBLANK([m]))
+			VAR b = TOPN(1, t, [m], ASC, dim_season[season], DESC)
+			RETURN MAXX(b, dim_season[season]) & ": " & MAXX(b, [c]) & " by " & FORMAT(MAXX(b, [m]), "#,0")
+		lineageTag: 163ea88b-d2af-4c88-93e3-9fa73c000852
+
+	measure 'Most Dominant Season' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "m", [Title Margin (pts)], "c", [Champion]), NOT ISBLANK([m]))
+			VAR b = TOPN(1, t, [m], DESC, dim_season[season], DESC)
+			RETURN MAXX(b, dim_season[season]) & ": " & MAXX(b, [c]) & " by " & FORMAT(MAXX(b, [m]), "#,0")
+		lineageTag: 5de4b482-11eb-46c9-b6b5-20c0ebed92b1
+
+	measure 'Different Champions' = 0 + COUNTROWS(CALCULATETABLE(VALUES(fact_constructor_standings[constructor_id]), fact_constructor_standings[position] = 1, REMOVEFILTERS(dim_constructor)))
+		formatString: 0
+		lineageTag: 4b7ad122-d553-430e-a8d6-75da7e161465
+
+	measure 'Champions List' =
+			VAR ch = CALCULATETABLE(SUMMARIZE(FILTER(fact_constructor_standings, fact_constructor_standings[position] = 1), fact_constructor_standings[constructor_name]), REMOVEFILTERS(dim_constructor))
+			VAR wc = ADDCOLUMNS(ch, "n", CALCULATE(COUNTROWS(fact_constructor_standings), fact_constructor_standings[position] = 1, REMOVEFILTERS(dim_constructor)))
+			RETURN CONCATENATEX(wc, fact_constructor_standings[constructor_name] & " (" & [n] & ")", ", ", [n], DESC)
+		lineageTag: f63d958d-4e67-4c36-9020-ba76c79e7698
+
+	measure 'Title Headline' =
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR preV = [Pre-Cap Avg Title Margin]
+			VAR postV = [Post-Cap Avg Title Margin]
+			VAR preC = CALCULATE([Different Champions], dim_season[is_post_cap] = FALSE())
+			VAR postC = CALCULATE([Different Champions], dim_season[is_post_cap] = TRUE())
+			RETURN SWITCH(TRUE(),
+			    n = 1, [Champion] & " won the " & MIN(dim_season[season]) & " constructors' title by " & FORMAT([Title Margin (pts)], "#,0") & " points over " & [Runner Up] & ".",
+			    NOT ISBLANK(preV) && NOT ISBLANK(postV), "Under the cap the average title margin fell from " & FORMAT(preV, "#,0") & " to " & FORMAT(postV, "#,0") & " points - and the title started changing hands: " & postC & " different champions, against " & preC & " before.",
+			    ISBLANK(postV), IF(preC = 1, "Before the cap one team won every title - ", "Before the cap the titles went to ") & [Champions List] & " - by " & FORMAT(preV, "#,0") & " points on average.",
+			    "Under the cap " & postC & " different teams have won the title, by " & FORMAT(postV, "#,0") & " points on average.")
+		lineageTag: 525981ea-8265-430b-b015-c29283567e52
+
+	measure 'Title Story' =
+			VAR nl = UNICHAR(10) & UNICHAR(10)
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR preV = [Pre-Cap Avg Title Margin]
+			VAR postV = [Post-Cap Avg Title Margin]
+			VAR overall = CALCULATE([Avg Title Margin], REMOVEFILTERS(dim_season))
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "m", [Title Margin (pts)], "pc", CALCULATE(SELECTEDVALUE(dim_season[is_post_cap]))), NOT ISBLANK([m]))
+			VAR dom = TOPN(1, t, [m], DESC, dim_season[season], DESC)
+			VAR domPost = MAXX(dom, IF([pc], 1, 0)) = 1
+			VAR single =
+			    "The cap's headline promise was to stop one team out-spending everyone and running away with the championship, so the title margin - how far the champion finished ahead of the runner-up - is the first test." & nl &
+			    "In " & MIN(dim_season[season]) & ", " & [Champion] & " beat " & [Runner Up] & " by " & FORMAT([Title Margin (pts)], "#,0") & " points. " &
+			    IF(SELECTEDVALUE(dim_season[is_post_cap]), "It was a cost-cap season, with team spending limited to $" & FORMAT(MAX(dim_season[cap_usd_m]), "0") & "m.", "It was before the cost cap, when spending was effectively unlimited.") & nl &
+			    "Across all 13 seasons the average winning margin is " & FORMAT(overall, "#,0") & " points, so this title was " &
+			    IF([Title Margin (pts)] < overall * 0.5, "an unusually close fight.", IF([Title Margin (pts)] > overall * 1.5, "unusually one-sided.", "a fairly typical one."))
+			VAR multi =
+			    "The cap's headline promise was to stop one team out-spending everyone and running away with the championship, so the title margin - how far the champion finished ahead of the runner-up - is the first test." & nl &
+			    "Across " & [Selection Seasons Text] & ", the champion won by " & FORMAT([Avg Title Margin], "#,0") & " points on average. The closest fight was in " & [Closest Title Fight] & " points; the most one-sided in " & [Most Dominant Season] & " points." & nl &
+			    SWITCH(TRUE(),
+			        NOT ISBLANK(preV) && NOT ISBLANK(postV),
+			            "Pre-cap seasons here averaged " & FORMAT(preV, "#,0") & " points and post-cap seasons " & FORMAT(postV, "#,0") & ". " &
+			            IF(domPost, "Closer on average - yet the most lopsided season of all came under the cap. The cap has not stopped a team dominating; it has stopped the same team dominating year after year.", "Closer on average, and the most lopsided seasons all came before the cap."),
+			        ISBLANK(postV), "All of these seasons are before the cap. Clear the Era slicer to set them against the cap era.",
+			        "All of these seasons are under the cap. Clear the Era slicer to set them against the years before it.") & nl &
+			    "Titles in this period: " & [Champions List] & "."
+			RETURN IF(n = 1, single, multi)
+		lineageTag: caaea921-e09a-484c-ac8f-d163ecf35e87
+
+	measure 'Constructor HHI' =
+			VAR tot = CALCULATE(SUM(fact_constructor_standings[points]), REMOVEFILTERS(dim_constructor))
+			RETURN IF(HASONEVALUE(dim_season[season]),
+			    CALCULATE(
+			        SUMX(VALUES(fact_constructor_standings[constructor_id]),
+			            (DIVIDE(CALCULATE(SUM(fact_constructor_standings[points])), tot) * 100) ^ 2),
+			        REMOVEFILTERS(dim_constructor)))
+		formatString: #,0
+		lineageTag: 3f60c2b2-c5b6-463a-8fe8-3df623b6000b
+
+	measure 'Avg HHI' = AVERAGEX(VALUES(dim_season[season]), [Constructor HHI])
+		formatString: #,0
+		lineageTag: 255e3407-9280-4e0e-809c-19c1d6421be7
+
+	measure 'Pre-Cap Avg HHI' = CALCULATE([Avg HHI], dim_season[is_post_cap] = FALSE())
+		formatString: #,0
+		lineageTag: 06c230ea-6861-4c57-a60a-3e5e28f9ba79
+
+	measure 'Post-Cap Avg HHI' = CALCULATE([Avg HHI], dim_season[is_post_cap] = TRUE())
+		formatString: #,0
+		lineageTag: cd9e31f0-c419-467a-bc0f-5f6db5f412f2
+
+	measure 'Equal Teams Card' = FORMAT(DIVIDE(10000, [Avg HHI]), "0.0") & " equal teams"
+		lineageTag: 52448bef-90d7-4054-a002-4dc1f53e0561
+
+	measure 'Winners Headline' =
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR preW = [Pre-Cap Avg Winning Teams]
+			VAR postW = [Post-Cap Avg Winning Teams]
+			RETURN SWITCH(TRUE(),
+			    n = 1, [Winning Teams] & " different teams won races in " & MIN(dim_season[season]) & ", and the points were shared like " & [Equal Teams Card] & ".",
+			    NOT ISBLANK(preW) && NOT ISBLANK(postW), "A typical season now has " & FORMAT(postW, "0.0") & " race-winning teams, up from " & FORMAT(preW, "0.0") & " - and the points are shared a little more evenly.",
+			    ISBLANK(postW), "Before the cap, a typical season had just " & FORMAT([Avg Winning Teams], "0.0") & " race-winning teams.",
+			    "Under the cap, a typical season has " & FORMAT([Avg Winning Teams], "0.0") & " race-winning teams.")
+		lineageTag: f36aa771-98be-4487-bcfe-cd7de60f61d3
+
+	measure 'Winners Story' =
+			VAR nl = UNICHAR(10) & UNICHAR(10)
+			VAR h = [Avg HHI]
+			VAR band = SWITCH(TRUE(), h < 1500, "unconcentrated", h < 2500, "moderately concentrated", "highly concentrated")
+			VAR nS = COUNTROWS(VALUES(dim_season[season]))
+			VAR teams = DIVIDE(CALCULATE(COUNTROWS(fact_constructor_standings), REMOVEFILTERS(dim_constructor)), nS)
+			VAR preH = [Pre-Cap Avg HHI]
+			VAR postH = [Post-Cap Avg HHI]
+			VAR preW = [Pre-Cap Avg Winning Teams]
+			VAR postW = [Post-Cap Avg Winning Teams]
+			RETURN
+			    "A title can be close while only two teams are ever in contention. So the second test looks at the whole field: how evenly the points are spread, and how many teams can actually win a race." & nl &
+			    "The top chart borrows a tool from competition regulators, the Herfindahl-Hirschman Index (HHI). Across " & [Selection Seasons Text] & " it averaged " & FORMAT(h, "#,0") & " - 'moderately concentrated' in regulator terms, and the same as if about " & FORMAT(DIVIDE(10000, h), "0.0") & " equally strong teams shared every point, although about " & FORMAT(teams, "0") & " teams took part." & nl &
+			    IF(nS = 1,
+			        [Winning Teams] & " different teams won at least one race that season.",
+			        "On average " & FORMAT([Avg Winning Teams], "0.0") & " teams won at least one race each season, and " & [Seasons With 4+ Winners] & " of these " & nS & " seasons had four or more different winners.") & nl &
+			    IF(NOT ISBLANK(preH) && NOT ISBLANK(postH),
+			        "Before the cap: HHI " & FORMAT(preH, "#,0") & " and " & FORMAT(preW, "0.0") & " winning teams a season. Under it: " & FORMAT(postH, "#,0") & " and " & FORMAT(postW, "0.0") & ". Both moved the right way, but modestly - a handful of teams still share almost everything.",
+			        "Clear the Era slicer to compare these seasons with the other side of 2021.")
+		lineageTag: 9c35aa18-cd8d-4d06-9d71-28721078eba6
+
+	measure 'Back-of-Grid Gap %' =
+			VAR t = CALCULATETABLE(fact_constructor_standings, REMOVEFILTERS(dim_constructor))
+			VAR mx = MAXX(t, fact_constructor_standings[points])
+			VAR mn = MINX(FILTER(t, fact_constructor_standings[points] > 0), fact_constructor_standings[points])
+			RETURN IF(HASONEVALUE(dim_season[season]), DIVIDE(mx - mn, mx))
+		formatString: 0.0%
+		lineageTag: 803593f2-3119-4cd9-b042-e5481fa51a37
+
+	measure 'Avg Back-of-Grid Gap' = AVERAGEX(VALUES(dim_season[season]), [Back-of-Grid Gap %])
+		formatString: 0.0%
+		lineageTag: 4de53e4c-7f61-4701-b2c7-d2407cf2cd06
+
+	measure 'Lowest Scorer Share' = 1 - [Avg Back-of-Grid Gap]
+		formatString: 0.0%
+		lineageTag: 30ebadba-30da-4f54-8776-19dd831732df
+
+	measure 'Lowest Scorer Share (season)' = IF(HASONEVALUE(dim_season[season]), 1 - [Back-of-Grid Gap %])
+		formatString: 0.0%
+		lineageTag: 974a8b6b-576b-4055-9662-364ac559e898
+
+	measure 'Narrowest Back-of-Grid Gap' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "g", [Back-of-Grid Gap %]), NOT ISBLANK([g]))
+			VAR b = TOPN(1, t, [g], ASC, dim_season[season], DESC)
+			RETURN MAXX(b, dim_season[season]) & ": " & FORMAT(1 - MAXX(b, [g]), "0.0%")
+		lineageTag: 6a932bbb-d995-4a53-b562-1d39321296d0
+
+	measure 'Top 3 Points Share' =
+			VAR t = CALCULATETABLE(fact_constructor_standings, REMOVEFILTERS(dim_constructor))
+			RETURN IF(HASONEVALUE(dim_season[season]),
+			    DIVIDE(SUMX(TOPN(3, t, fact_constructor_standings[points], DESC), fact_constructor_standings[points]), SUMX(t, fact_constructor_standings[points])))
+		formatString: 0%
+		lineageTag: 83110611-0bd1-4fa5-adb3-9b1000a18098
+
+	measure 'Team Points Share' = DIVIDE(SUM(fact_constructor_standings[points]), CALCULATE(SUM(fact_constructor_standings[points]), REMOVEFILTERS(dim_constructor)))
+		formatString: 0.0%
+		lineageTag: 13fa25e9-f067-4f9c-8fde-5d0240f7a438
+
+	measure 'Avg Top 3 Share' = AVERAGEX(VALUES(dim_season[season]), [Top 3 Points Share])
+		formatString: 0.0%
+		lineageTag: f29bbfea-e055-4659-802b-9d079b9f5050
+
+	measure 'Most Even Season' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "s", [Top 3 Points Share]), NOT ISBLANK([s]))
+			VAR b = TOPN(1, t, [s], ASC, dim_season[season], DESC)
+			RETURN MAXX(b, dim_season[season]) & ": " & FORMAT(MAXX(b, [s]), "0%")
+		lineageTag: a97191b5-8a85-42c8-ae90-8ca9e3056dfe
+
+	measure 'Points Headline' =
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR pre3 = CALCULATE([Avg Top 3 Share], dim_season[is_post_cap] = FALSE())
+			VAR post3 = CALCULATE([Avg Top 3 Share], dim_season[is_post_cap] = TRUE())
+			RETURN SWITCH(TRUE(),
+			    n = 1, "In " & MIN(dim_season[season]) & " the top three teams took " & FORMAT([Avg Top 3 Share], "0%") & " of all points; the lowest scorer got " & FORMAT([Lowest Scorer Share], "0.0%") & " of the champion's total.",
+			    NOT ISBLANK(pre3) && NOT ISBLANK(post3), "But the rewards still go to the front: the top three teams took " & FORMAT(pre3, "0%") & " of all points before the cap and " & FORMAT(post3, "0%") & " under it.",
+			    "In these seasons the top three teams took " & FORMAT([Avg Top 3 Share], "0%") & " of all points scored.")
+		lineageTag: 58ac08b6-b676-4706-be27-1147505e7a70
+
+	measure 'Points Story' =
+			VAR nl = UNICHAR(10) & UNICHAR(10)
+			VAR pre3 = CALCULATE([Avg Top 3 Share], dim_season[is_post_cap] = FALSE())
+			VAR post3 = CALCULATE([Avg Top 3 Share], dim_season[is_post_cap] = TRUE())
+			VAR preL = CALCULATE([Lowest Scorer Share], dim_season[is_post_cap] = FALSE())
+			VAR postL = CALCULATE([Lowest Scorer Share], dim_season[is_post_cap] = TRUE())
+			RETURN
+			    "Closer cars do not automatically mean a fairer share of the rewards. Only the top ten finishers in each race score points - 25 for a win down to 1 for tenth - and the final points table also decides how prize money is shared. So a small pace deficit can still leave a team with almost nothing." & nl &
+			    "Across " & [Selection Seasons Text] & ", the three best teams took " & FORMAT([Avg Top 3 Share], "0%") & " of every point scored. The lowest-scoring team (of those that scored at all) finished with just " & FORMAT([Lowest Scorer Share], "0.0%") & " of the champion's total." & nl &
+			    IF(NOT ISBLANK(pre3) && NOT ISBLANK(post3),
+			        "Before the cap: top-three share " & FORMAT(pre3, "0%") & ", lowest scorer " & FORMAT(preL, "0.0%") & " of the champion. Under the cap: " & FORMAT(post3, "0%") & " and " & FORMAT(postL, "0.0%") & ". Qualifying gaps shrank by about a third, but the points barely moved - the cap has narrowed the field without yet spreading its rewards.",
+			        "Clear the Era slicer to compare these seasons with the other side of 2021.")
+		lineageTag: 57cbc054-6b98-4d48-8110-52368e3323ea
+
+	measure 'Team Has Standings' = IF(COUNTROWS(fact_constructor_standings) > 0, 1)
+		lineageTag: a09dff24-3c65-4e3c-a189-79483f1cf1b8
+
+	measure 'Final Position' = MIN(fact_constructor_standings[position])
+		formatString: \P0
+		lineageTag: bb276ed6-4056-4207-b4b0-b68e33ca26df
+
+	measure 'Worst Finish' = MAX(fact_constructor_standings[position])
+		formatString: \P0
+		lineageTag: a17454a9-8c52-435d-8d52-cad48f274248
+
+	measure 'Constructor Titles' = 0 + COUNTROWS(FILTER(fact_constructor_standings, fact_constructor_standings[position] = 1))
+		formatString: 0
+		lineageTag: 4341e71c-f75e-4645-be4f-685ae60dd439
+
+	measure 'Selected Team' = SELECTEDVALUE(dim_constructor[constructor_name], "Several teams")
+		lineageTag: c3c6f31b-c9f8-46e0-825c-2dca9a684db0
+
+	measure 'Team Headline' =
+			VAR team = SELECTEDVALUE(dim_constructor[constructor_name])
+			VAR n = COUNTROWS(VALUES(fact_constructor_standings[season]))
+			VAR preV = CALCULATE(AVERAGE(fact_constructor_standings[position]), dim_season[is_post_cap] = FALSE())
+			VAR postV = CALCULATE(AVERAGE(fact_constructor_standings[position]), dim_season[is_post_cap] = TRUE())
+			RETURN SWITCH(TRUE(),
+			    ISBLANK(team), "Pick a single team in the Team slicer to follow its path through the cap era.",
+			    n = 1, team & " finished P" & MIN(fact_constructor_standings[position]) & " in " & MIN(fact_constructor_standings[season]) & ".",
+			    NOT ISBLANK(preV) && NOT ISBLANK(postV), team & " averaged P" & FORMAT(preV, "0.0") & " before the cap and P" & FORMAT(postV, "0.0") & " under it" &
+			        IF(postV < preV - 0.5, " - one of the cap era's risers.", IF(postV > preV + 0.5, " - it has gone backwards.", " - broadly unchanged.")),
+			    team & " averaged P" & FORMAT(AVERAGE(fact_constructor_standings[position]), "0.0") & " in these seasons.")
+		lineageTag: cda3fc73-a93f-47a0-91cc-d4fa613bee2e
+
+	measure 'Team Story' =
+			VAR nl = UNICHAR(10) & UNICHAR(10)
+			VAR team = SELECTEDVALUE(dim_constructor[constructor_name])
+			VAR yrs = VALUES(fact_constructor_standings[season])
+			VAR n = COUNTROWS(yrs)
+			VAR first = MINX(yrs, fact_constructor_standings[season])
+			VAR last = MAXX(yrs, fact_constructor_standings[season])
+			VAR best = MIN(fact_constructor_standings[position])
+			VAR worst = MAX(fact_constructor_standings[position])
+			VAR bestYrs = CONCATENATEX(FILTER(yrs, CALCULATE(MIN(fact_constructor_standings[position])) = best), fact_constructor_standings[season], ", ", fact_constructor_standings[season], ASC)
+			VAR worstYrs = CONCATENATEX(FILTER(yrs, CALCULATE(MIN(fact_constructor_standings[position])) = worst), fact_constructor_standings[season], ", ", fact_constructor_standings[season], ASC)
+			VAR titles = [Constructor Titles]
+			VAR intro = "Averages hide individual stories. If the cap levelled the field, teams stuck in the midfield should be able to climb - and some of the old leaders should slip."
+			VAR mcl = IF(team = "McLaren", nl & "McLaren is the cap era's clearest underdog story: 9th in 2015 and 2017 during a troubled engine partnership, then a rebuild that ended in back-to-back constructors' titles in 2024 and 2025 - its first since 1998.", "")
+			RETURN IF(ISBLANK(team),
+			    intro & nl & "Several teams are selected, so the charts show the best position any of them reached each season and their combined points. Pick one team to follow its own story.",
+			    IF(n = 1,
+			        intro & nl & "In " & first & ", " & team & " finished P" & best & " with " & FORMAT(SUM(fact_constructor_standings[points]), "#,0") & " points" & IF(best = 1, " - champions.", ".") & " Clear the Season slicer to see how that fits its longer path." & mcl,
+			        intro & nl & team & " appears in " & n & " of the selected seasons (" & first & "-" & last & "). Its best finish was P" & best & " (" & bestYrs & ") and its worst P" & worst & " (" & worstYrs & "); it averaged P" & FORMAT(AVERAGE(fact_constructor_standings[position]), "0.0") & " and won " & IF(titles = 0, "no titles", titles & IF(titles = 1, " title", " titles")) & "." & mcl))
+		lineageTag: 8d81ef45-5f8c-4b51-8715-9684f5a3e1e9
+
+	measure 'V Title Margin' = FORMAT(CALCULATE([Avg Title Margin], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE()), "#,0") & "  " & UNICHAR(8594) & "  " & FORMAT(CALCULATE([Avg Title Margin], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE()), "#,0") & " pts"
+		lineageTag: 65ccf1b1-7d5c-46c7-aaff-ecc34e494598
+
+	measure 'V Champions' = CALCULATE([Different Champions], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE()) & "  " & UNICHAR(8594) & "  " & CALCULATE([Different Champions], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE()) & " teams"
+		lineageTag: a8d02853-f3bb-4004-9996-9570ddbbe03a
+
+	measure 'V Race Winners' = FORMAT(CALCULATE([Avg Winning Teams], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE()), "0.0") & "  " & UNICHAR(8594) & "  " & FORMAT(CALCULATE([Avg Winning Teams], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE()), "0.0") & " teams"
+		lineageTag: 7f307da5-1977-49f2-95c0-a4d4e75f779b
+
+	measure 'V HHI' = FORMAT(CALCULATE([Avg HHI], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE()), "#,0") & "  " & UNICHAR(8594) & "  " & FORMAT(CALCULATE([Avg HHI], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE()), "#,0")
+		lineageTag: 2e4aa6fc-b938-44fe-87ef-1e00c6aa2a79
+
+	measure 'V Top 3 Share' = FORMAT(CALCULATE([Avg Top 3 Share], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE()), "0%") & "  " & UNICHAR(8594) & "  " & FORMAT(CALCULATE([Avg Top 3 Share], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE()), "0%")
+		lineageTag: 181ecafa-4b57-42c9-9521-b507928e54cf
+
+	measure 'Pre-Cap Avg Back-of-Grid Gap' = CALCULATE([Avg Back-of-Grid Gap], dim_season[is_post_cap] = FALSE())
+		formatString: 0.0%
+		lineageTag: 0cf35c74-a032-44d4-9f0b-63014fc4af07
+
+	measure 'Post-Cap Avg Back-of-Grid Gap' = CALCULATE([Avg Back-of-Grid Gap], dim_season[is_post_cap] = TRUE())
+		formatString: 0.0%
+		lineageTag: 8f3fae93-6923-4987-a244-86e5ca0313f5
+
+	measure 'Constructor Championship Points' = SUM(fact_constructor_standings[points])
+		formatString: #,0
+		lineageTag: ad29fcbd-49e6-488e-8369-d68521b9c614
+
+	measure 'Constructor Championship Wins' = SUM(fact_constructor_standings[wins])
+		formatString: #,0
+		lineageTag: 886dfc7a-1c79-479e-bfd1-9399e30512e8
+
+	measure 'Constructor Points Share %' = DIVIDE([Constructor Championship Points], CALCULATE([Constructor Championship Points], ALL(fact_constructor_standings[constructor_id])))
+		formatString: 0.0%
+		lineageTag: 7e26a5f9-5883-47fe-b675-62df52c2cd62
+
+	measure 'Cover Title Margin Shift' = FORMAT([Pre-Cap Avg Title Margin], "0") & " " & UNICHAR(8594) & " " & FORMAT([Post-Cap Avg Title Margin], "0") & " pts"
+		lineageTag: 6218b3f7-e79c-44a8-bcaa-ee48f2aae1b1
+
+	measure 'Cover Biggest Title Margin' = FORMAT(MAXX(ALL(dim_season[season]), [Title Margin (pts)]), "0") & " pts"
+		lineageTag: da0a0d33-fef6-42d7-867a-1ce48d689287
+
+	measure 'Cover McLaren Swing' =
+			VAR worst = CALCULATE(MAX(fact_constructor_standings[position]), REMOVEFILTERS(dim_constructor), REMOVEFILTERS(dim_season), fact_constructor_standings[constructor_id] = "mclaren")
+			VAR best = CALCULATE(MIN(fact_constructor_standings[position]), REMOVEFILTERS(dim_constructor), REMOVEFILTERS(dim_season), fact_constructor_standings[constructor_id] = "mclaren")
+			RETURN "P" & worst & " " & UNICHAR(8594) & " " & "P" & best
+		lineageTag: a4d977dd-90d0-46e5-87ad-8268d1405314
+
+	measure 'Most Concentrated Season' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "h", [Constructor HHI]), NOT ISBLANK([h]))
+			VAR b = TOPN(1, t, [h], DESC, dim_season[season], DESC)
+			RETURN MAXX(b, dim_season[season]) & ": " & FORMAT(MAXX(b, [h]), "#,0")
+		lineageTag: 58ecd0c0-039a-4b13-a16e-0eea36730e01
+
+	column season
+		dataType: int64
+		lineageTag: 862c5ec4-271a-43b7-bfa2-d05103c05dbd
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_id
+		dataType: string
+		lineageTag: d824825c-5483-49a1-a808-562284528aee
+		summarizeBy: none
+		sourceColumn: constructor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_name
+		dataType: string
+		lineageTag: 852e6934-ff78-4415-bb78-6f22ca94df75
+		summarizeBy: none
+		sourceColumn: constructor_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column position
+		dataType: int64
+		lineageTag: 50981e0d-c533-4123-abed-e2a917d5842d
+		summarizeBy: sum
+		sourceColumn: position
+
+		annotation SummarizationSetBy = Automatic
+
+	column points
+		dataType: double
+		lineageTag: 5ee4bae2-0bac-405c-8d59-0ffc34802288
+		summarizeBy: sum
+		sourceColumn: points
+
+		annotation SummarizationSetBy = Automatic
+
+	column wins
+		dataType: int64
+		lineageTag: c3d594c7-d7f9-4919-add6-415c6528fe35
+		summarizeBy: sum
+		sourceColumn: wins
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_constructor_standings = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\fact_constructor_standings.csv"), [Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"constructor_id", type text}, {"constructor_name", type text}, {"position", Int64.Type}, {"points", type number}, {"wins", Int64.Type}})
+				in
+				    #"Changed Type"
+

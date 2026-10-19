@@ -1,0 +1,145 @@
+table fact_results
+	lineageTag: 30d84e06-0de1-4514-ad12-043d01062238
+
+	measure 'Winning Teams' = CALCULATE(DISTINCTCOUNT(fact_results[constructor_id]), fact_results[position_order] = 1, REMOVEFILTERS(dim_constructor))
+		formatString: 0
+		lineageTag: dd33be70-b9cd-4219-9d55-c7d052728f1f
+
+	measure 'Avg Winning Teams' = AVERAGEX(VALUES(dim_season[season]), [Winning Teams])
+		formatString: 0.0
+		lineageTag: 4be06814-ea2c-46d5-82bc-9660f19a1723
+
+	measure 'Seasons With 4+ Winners' = 0 + COUNTROWS(FILTER(VALUES(dim_season[season]), [Winning Teams] >= 4))
+		formatString: 0
+		lineageTag: 17adcfa2-8173-40df-afb2-dde135fba49d
+
+	measure 'Pre-Cap Avg Winning Teams' = CALCULATE([Avg Winning Teams], dim_season[is_post_cap] = FALSE())
+		formatString: 0.0
+		lineageTag: 3ac058f5-fe81-48b8-9860-01148606b67b
+
+	measure 'Post-Cap Avg Winning Teams' = CALCULATE([Avg Winning Teams], dim_season[is_post_cap] = TRUE())
+		formatString: 0.0
+		lineageTag: 40aa64d9-5516-4fc2-bb4b-8ff4a68dbe02
+
+	measure 'Total Race Entries' = COUNTROWS(fact_results)
+		formatString: #,0
+		lineageTag: c9d88ec4-2262-4d64-b75e-045fa9b638b4
+
+	measure 'Total Points' = SUM(fact_results[points])
+		formatString: #,0
+		lineageTag: 446e04eb-9eb3-4305-81a2-5d2c3b982089
+
+	measure 'Avg Places Gained' = AVERAGE(fact_results[places_gained])
+		formatString: 0.0
+		lineageTag: 18f2508c-ff1c-46fd-a34a-f9180bc2cc5d
+
+	measure 'Avg Grid Position' = AVERAGE(fact_results[grid])
+		formatString: 0.0
+		lineageTag: c8c54b7f-21c0-4e28-a802-c31ded1f44db
+
+	measure 'Avg Finish Position' = AVERAGE(fact_results[position_order])
+		formatString: 0.0
+		lineageTag: 2718b332-bd0a-4846-a1af-87c9d6f3899e
+
+	measure 'Distinct Race Winners' = CALCULATE(DISTINCTCOUNT(fact_results[driver_id]), fact_results[position_order] = 1)
+		formatString: #,0
+		lineageTag: 07cc8100-24c6-4219-a806-66026b3caecc
+
+	column season
+		dataType: int64
+		lineageTag: 96c06082-6e1b-40bf-bdc3-630bfecebfcb
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column round
+		dataType: int64
+		lineageTag: c1d85189-ce8c-4b88-b4a9-07ebdf00c654
+		summarizeBy: sum
+		sourceColumn: round
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_id
+		dataType: string
+		lineageTag: 501e9776-b3d6-4776-a47a-41f319e29ff3
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_id
+		dataType: string
+		lineageTag: 554b87eb-6850-4e43-bc9c-0c8c2c2e1697
+		summarizeBy: none
+		sourceColumn: constructor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grid
+		dataType: int64
+		lineageTag: 7632ba87-1f66-4dac-9bc8-5743a64e4ea0
+		summarizeBy: sum
+		sourceColumn: grid
+
+		annotation SummarizationSetBy = Automatic
+
+	column position_order
+		dataType: double
+		lineageTag: 927af496-85cb-4387-b2be-eef065bdea19
+		summarizeBy: sum
+		sourceColumn: position_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column points
+		dataType: double
+		lineageTag: 9ff1ac05-eef9-4a4a-a41e-67644f6016bd
+		summarizeBy: sum
+		sourceColumn: points
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 817c6bc1-0ffe-4ee9-8b7c-2843c6744d91
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column places_gained
+		dataType: double
+		lineageTag: 6cf84223-721b-4059-9708-9c6e1e5b65a9
+		summarizeBy: sum
+		sourceColumn: places_gained
+
+		annotation SummarizationSetBy = Automatic
+
+	column fastest_lap_text
+		dataType: string
+		lineageTag: 4ed66800-7449-45b9-bc69-98c8e855c4c5
+		summarizeBy: none
+		sourceColumn: fastest_lap_text
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_post_cap
+		dataType: boolean
+		lineageTag: f9ef003e-5830-4690-9154-9a2cd2821a90
+		summarizeBy: none
+		sourceColumn: is_post_cap
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_results = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\fact_results.csv"), [Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"round", Int64.Type}, {"driver_id", type text}, {"constructor_id", type text}, {"grid", Int64.Type}, {"position_order", type number}, {"points", type number}, {"status", type text}, {"places_gained", type number}, {"fastest_lap_text", type text}, {"is_post_cap", type logical}})
+				in
+				    #"Changed Type"
+

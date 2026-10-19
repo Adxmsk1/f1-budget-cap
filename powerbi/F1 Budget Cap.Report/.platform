@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "F1 Budget Cap"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "842061e9-59dc-426f-9c49-b46dc88a0272"
+  }
+}

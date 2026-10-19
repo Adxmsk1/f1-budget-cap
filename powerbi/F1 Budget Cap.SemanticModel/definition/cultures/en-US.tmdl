@@ -1,0 +1,1226 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "fact_constructor_standings.postcap_avg_title_margin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Post-Cap Avg Title Margin"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.precap_avg_title_margin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Pre-Cap Avg Title Margin"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.closest_title_fight": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Closest Title Fight"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Closest title fight (pts)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.most_dominant_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Most Dominant Season"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Most one-sided title (pts)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.title_margin_pts": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Title Margin (pts)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Title margin (pts)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.selected_team": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Selected Team"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Team shown": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.final_position": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Final Position"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Best finish": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Final position": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.worst_finish": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Worst Finish"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Worst finish": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.constructor_titles": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Constructor Titles"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Constructors' titles": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.constructor_championship_points": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Constructor Championship Points"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Points": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Championship points": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.precap_avg_hhi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Pre-Cap Avg HHI"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.postcap_avg_hhi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Post-Cap Avg HHI"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.constructor_hhi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Constructor HHI"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "HHI": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.precap_avg_backofgrid_gap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Pre-Cap Avg Back-of-Grid Gap"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.postcap_avg_backofgrid_gap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Post-Cap Avg Back-of-Grid Gap"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.backofgrid_gap_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Back-of-Grid Gap %"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_results.postcap_avg_winning_teams": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_results",
+			          "ConceptualProperty": "Post-Cap Avg Winning Teams"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_results.precap_avg_winning_teams": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_results",
+			          "ConceptualProperty": "Pre-Cap Avg Winning Teams"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_results.winning_teams": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_results",
+			          "ConceptualProperty": "Winning Teams"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Teams winning a race": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_season.season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_season",
+			          "ConceptualProperty": "season"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Season": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.fastest_pit_crew": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Fastest Pit Crew"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fastest crew": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.slowest_pit_crew": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Slowest Pit Crew"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Slowest crew": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.pit_crew_spread_s": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Pit Crew Spread (s)"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.pit_stops_timed": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Pit Stops Timed"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.avg_pit_stop_duration_s": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Avg Pit Stop Duration (s)"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "dim_constructor.constructor_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_constructor",
+			          "ConceptualProperty": "constructor_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Team": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_qualifying.precap_avg_qualifying_spread": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Pre-Cap Avg Qualifying Spread"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_qualifying.postcap_avg_qualifying_spread": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Post-Cap Avg Qualifying Spread"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_qualifying.qualifying_spread_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Qualifying Spread %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg gap, slowest to fastest team": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Qualifying gap": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.cover_title_margin_shift": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Cover Title Margin Shift"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg title-winning margin, before → after cap": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.cover_biggest_title_margin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Cover Biggest Title Margin"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Biggest title margin: Red Bull 2023, post-cap": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.cover_mclaren_swing": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Cover McLaren Swing"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "McLaren: worst finish to back-to-back titles": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.avg_title_margin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Avg Title Margin"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg title-winning margin (pts)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.different_champions": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Different Champions"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Different champions": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.p1_commentary": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "P1 Commentary"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.p2_commentary": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "P2 Commentary"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.avg_hhi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Avg HHI"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg points concentration (HHI)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.most_concentrated_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Most Concentrated Season"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.p4_commentary": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "P4 Commentary"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.avg_backofgrid_gap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Avg Back-of-Grid Gap"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.narrowest_backofgrid_gap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Narrowest Back-of-Grid Gap"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Best season for the back markers": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.p5_commentary": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "P5 Commentary"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.avg_stop_in_view_s": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Avg Stop In View (s)"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.gap_to_fastest_crew_s": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Gap To Fastest Crew (s)"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.p3_commentary": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "P3 Commentary"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_results.avg_winning_teams": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_results",
+			          "ConceptualProperty": "Avg Winning Teams"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg teams winning a race / season": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_results.seasons_with_4_winners": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_results",
+			          "ConceptualProperty": "Seasons With 4+ Winners"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Seasons where 4+ teams won": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_qualifying.tightest_qualifying_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Tightest Qualifying Season"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Tightest season": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.title_story": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Title Story"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.title_headline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Title Headline"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.winners_story": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Winners Story"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.equal_teams_card": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Equal Teams Card"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Equivalent number of equal teams": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.winners_headline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Winners Headline"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.points_story": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Points Story"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.avg_top_3_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Avg Top 3 Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Points won by the top three teams": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.lowest_scorer_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Lowest Scorer Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Lowest scorer vs champion's points": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.most_even_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Most Even Season"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Most evenly shared season": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.points_headline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Points Headline"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.lowest_scorer_share_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Lowest Scorer Share (season)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Lowest scorer vs champion": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_constructor_standings.top_3_points_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Top 3 Points Share"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.team_story": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Team Story"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.team_headline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Team Headline"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.v_champions": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "V Champions"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.v_title_margin": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "V Title Margin"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.v_race_winners": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "V Race Winners"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.v_hhi": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "V HHI"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.v_top_3_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "V Top 3 Share"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_qualifying.pace_story": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Pace Story"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_qualifying.pace_spread_seconds": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Pace Spread Seconds"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "On a 90-second lap": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_qualifying.fastest_team_on_average": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Fastest Team On Average"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Closest to the front": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_qualifying.pace_headline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Pace Headline"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_qualifying.team_quali_gap_latest_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "Team Quali Gap (latest season)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Gap to fastest": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_qualifying.v_pace_gap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_qualifying",
+			          "ConceptualProperty": "V Pace Gap"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.pit_story": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Pit Story"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.avg_pit_crew_gap_s": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Avg Pit Crew Gap (s)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Fastest-to-slowest crew gap": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.avg_champion_pit_rank": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Avg Champion Pit Rank"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Champion's pit crew, avg rank": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.pit_crew_gap_s": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Pit Crew Gap (s)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Crew gap (s)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.pit_headline": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Pit Headline"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_pitstops.avg_pit_stop_latest_season": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "Avg Pit Stop (latest season)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Avg stop (s)": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "fact_pitstops.v_pit_edge": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_pitstops",
+			          "ConceptualProperty": "V Pit Edge"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "fact_constructor_standings.team_points_share": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "fact_constructor_standings",
+			          "ConceptualProperty": "Team Points Share"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Share of the season's points": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

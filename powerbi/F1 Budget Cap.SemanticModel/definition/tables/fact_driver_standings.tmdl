@@ -1,0 +1,73 @@
+table fact_driver_standings
+	lineageTag: 07704a60-c7fc-49c5-9faa-c95d3928baae
+
+	measure 'Driver Championship Points' = SUM(fact_driver_standings[points])
+		formatString: #,0
+		lineageTag: df0be5cf-6cf5-4a10-94ff-83cccb93bbd7
+
+	measure 'Driver Championship Wins' = SUM(fact_driver_standings[wins])
+		formatString: #,0
+		lineageTag: 6235f4ec-bf89-4e51-b4e3-299eea8dac74
+
+	measure 'Distinct Champions' = CALCULATE(DISTINCTCOUNT(fact_driver_standings[driver_id]), fact_driver_standings[position] = 1)
+		formatString: #,0
+		lineageTag: cea9f152-f7af-4aac-9862-338bfbdc0b2d
+
+	column season
+		dataType: int64
+		lineageTag: ba1e7e6f-c434-4cb8-94c5-5baf736bc55a
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_id
+		dataType: string
+		lineageTag: bfdecf06-cb36-48eb-af9a-89c46f7890a1
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_id
+		dataType: string
+		lineageTag: 75219356-68d5-4f51-956c-6378e9f049f6
+		summarizeBy: none
+		sourceColumn: constructor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column position
+		dataType: double
+		lineageTag: f364a399-166c-41b3-a96c-8a63e7ec622b
+		summarizeBy: sum
+		sourceColumn: position
+
+		annotation SummarizationSetBy = Automatic
+
+	column points
+		dataType: double
+		lineageTag: eb378f32-47ba-49f8-9451-cb2ed48bab02
+		summarizeBy: sum
+		sourceColumn: points
+
+		annotation SummarizationSetBy = Automatic
+
+	column wins
+		dataType: int64
+		lineageTag: e21ec3bb-c963-44c8-8b76-6d09465a7953
+		summarizeBy: sum
+		sourceColumn: wins
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_driver_standings = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\fact_driver_standings.csv"), [Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"driver_id", type text}, {"constructor_id", type text}, {"position", type number}, {"points", type number}, {"wins", Int64.Type}})
+				in
+				    #"Changed Type"
+

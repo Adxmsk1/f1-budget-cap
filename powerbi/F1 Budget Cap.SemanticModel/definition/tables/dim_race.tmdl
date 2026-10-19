@@ -1,0 +1,54 @@
+table dim_race
+	lineageTag: 5161b11f-1e85-4d1d-8966-8c41693d718a
+
+	column season
+		dataType: int64
+		lineageTag: c9543ffe-820d-42c1-9ce0-f5653dcfd260
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column round
+		dataType: int64
+		lineageTag: 8d2b5fdf-f410-4dfe-bd0a-592c973786ab
+		summarizeBy: sum
+		sourceColumn: round
+
+		annotation SummarizationSetBy = Automatic
+
+	column race_name
+		dataType: string
+		lineageTag: 6061ecb7-a744-4cbb-879a-61a67284a6a8
+		summarizeBy: none
+		sourceColumn: race_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column circuit_id
+		dataType: string
+		lineageTag: ca632fa6-1b24-45b0-9e66-c49c0e54f005
+		summarizeBy: none
+		sourceColumn: circuit_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 98593fb8-46ac-4121-985a-0cf52be2fcf5
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_race = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\dim_race.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"round", Int64.Type}, {"race_name", type text}, {"circuit_id", type text}, {"date", type date}})
+				in
+				    #"Changed Type"
+

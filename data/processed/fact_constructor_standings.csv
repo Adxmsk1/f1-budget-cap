@@ -1,0 +1,134 @@
+season,constructor_id,constructor_name,position,points,wins
+2014,mercedes,Mercedes,1,701.0,16
+2014,red_bull,Red Bull,2,405.0,3
+2014,williams,Williams,3,320.0,0
+2014,ferrari,Ferrari,4,216.0,0
+2014,mclaren,McLaren,5,181.0,0
+2014,force_india,Force India,6,155.0,0
+2014,toro_rosso,Toro Rosso,7,30.0,0
+2014,lotus_f1,Lotus F1,8,10.0,0
+2014,marussia,Marussia,9,2.0,0
+2014,sauber,Sauber,10,0.0,0
+2014,caterham,Caterham,11,0.0,0
+2015,mercedes,Mercedes,1,703.0,16
+2015,ferrari,Ferrari,2,428.0,3
+2015,williams,Williams,3,257.0,0
+2015,red_bull,Red Bull,4,187.0,0
+2015,force_india,Force India,5,136.0,0
+2015,lotus_f1,Lotus F1,6,78.0,0
+2015,toro_rosso,Toro Rosso,7,67.0,0
+2015,sauber,Sauber,8,36.0,0
+2015,mclaren,McLaren,9,27.0,0
+2015,manor,Manor Marussia,10,0.0,0
+2016,mercedes,Mercedes,1,765.0,19
+2016,red_bull,Red Bull,2,468.0,2
+2016,ferrari,Ferrari,3,398.0,0
+2016,force_india,Force India,4,173.0,0
+2016,williams,Williams,5,138.0,0
+2016,mclaren,McLaren,6,76.0,0
+2016,toro_rosso,Toro Rosso,7,63.0,0
+2016,haas,Haas F1 Team,8,29.0,0
+2016,renault,Renault,9,8.0,0
+2016,sauber,Sauber,10,2.0,0
+2016,manor,Manor Marussia,11,1.0,0
+2017,mercedes,Mercedes,1,668.0,12
+2017,ferrari,Ferrari,2,522.0,5
+2017,red_bull,Red Bull,3,368.0,3
+2017,force_india,Force India,4,187.0,0
+2017,williams,Williams,5,83.0,0
+2017,renault,Renault,6,57.0,0
+2017,toro_rosso,Toro Rosso,7,53.0,0
+2017,haas,Haas F1 Team,8,47.0,0
+2017,mclaren,McLaren,9,30.0,0
+2017,sauber,Sauber,10,5.0,0
+2018,mercedes,Mercedes,1,655.0,11
+2018,ferrari,Ferrari,2,571.0,6
+2018,red_bull,Red Bull,3,419.0,4
+2018,renault,Renault,4,122.0,0
+2018,force_india,Force India,5,111.0,0
+2018,haas,Haas F1 Team,6,93.0,0
+2018,mclaren,McLaren,7,62.0,0
+2018,sauber,Sauber,8,48.0,0
+2018,toro_rosso,Toro Rosso,9,33.0,0
+2018,williams,Williams,10,7.0,0
+2019,mercedes,Mercedes,1,739.0,15
+2019,ferrari,Ferrari,2,504.0,3
+2019,red_bull,Red Bull,3,417.0,3
+2019,mclaren,McLaren,4,145.0,0
+2019,renault,Renault,5,91.0,0
+2019,toro_rosso,Toro Rosso,6,85.0,0
+2019,racing_point,Racing Point,7,73.0,0
+2019,alfa,Alfa Romeo,8,57.0,0
+2019,haas,Haas F1 Team,9,28.0,0
+2019,williams,Williams,10,1.0,0
+2020,mercedes,Mercedes,1,573.0,13
+2020,red_bull,Red Bull,2,319.0,2
+2020,mclaren,McLaren,3,202.0,0
+2020,racing_point,Racing Point,4,195.0,1
+2020,renault,Renault,5,181.0,0
+2020,ferrari,Ferrari,6,131.0,0
+2020,alphatauri,AlphaTauri,7,107.0,1
+2020,alfa,Alfa Romeo,8,8.0,0
+2020,haas,Haas F1 Team,9,3.0,0
+2020,williams,Williams,10,0.0,0
+2021,mercedes,Mercedes,1,613.5,9
+2021,red_bull,Red Bull,2,585.5,11
+2021,ferrari,Ferrari,3,323.5,0
+2021,mclaren,McLaren,4,275.0,1
+2021,alpine,Alpine F1 Team,5,155.0,1
+2021,alphatauri,AlphaTauri,6,142.0,0
+2021,aston_martin,Aston Martin,7,77.0,0
+2021,williams,Williams,8,23.0,0
+2021,alfa,Alfa Romeo,9,13.0,0
+2021,haas,Haas F1 Team,10,0.0,0
+2022,red_bull,Red Bull,1,759.0,17
+2022,ferrari,Ferrari,2,554.0,4
+2022,mercedes,Mercedes,3,515.0,1
+2022,alpine,Alpine F1 Team,4,173.0,0
+2022,mclaren,McLaren,5,159.0,0
+2022,alfa,Alfa Romeo,6,55.0,0
+2022,aston_martin,Aston Martin,7,55.0,0
+2022,haas,Haas F1 Team,8,37.0,0
+2022,alphatauri,AlphaTauri,9,35.0,0
+2022,williams,Williams,10,8.0,0
+2023,red_bull,Red Bull,1,860.0,21
+2023,mercedes,Mercedes,2,409.0,0
+2023,ferrari,Ferrari,3,406.0,1
+2023,mclaren,McLaren,4,302.0,0
+2023,aston_martin,Aston Martin,5,280.0,0
+2023,alpine,Alpine F1 Team,6,120.0,0
+2023,williams,Williams,7,28.0,0
+2023,alphatauri,AlphaTauri,8,25.0,0
+2023,alfa,Alfa Romeo,9,16.0,0
+2023,haas,Haas F1 Team,10,12.0,0
+2024,mclaren,McLaren,1,666.0,6
+2024,ferrari,Ferrari,2,652.0,5
+2024,red_bull,Red Bull,3,589.0,9
+2024,mercedes,Mercedes,4,468.0,4
+2024,aston_martin,Aston Martin,5,94.0,0
+2024,alpine,Alpine F1 Team,6,65.0,0
+2024,haas,Haas F1 Team,7,58.0,0
+2024,rb,RB F1 Team,8,46.0,0
+2024,williams,Williams,9,17.0,0
+2024,sauber,Sauber,10,4.0,0
+2025,mclaren,McLaren,1,833.0,14
+2025,mercedes,Mercedes,2,469.0,2
+2025,red_bull,Red Bull,3,451.0,8
+2025,ferrari,Ferrari,4,398.0,0
+2025,williams,Williams,5,137.0,0
+2025,rb,RB F1 Team,6,92.0,0
+2025,aston_martin,Aston Martin,7,89.0,0
+2025,haas,Haas F1 Team,8,79.0,0
+2025,sauber,Sauber,9,70.0,0
+2025,alpine,Alpine F1 Team,10,22.0,0
+2026,mercedes,Mercedes,1,578.0,11
+2026,ferrari,Ferrari,2,444.0,2
+2026,mclaren,McLaren,3,339.0,2
+2026,red_bull,Red Bull,4,332.0,2
+2026,rb,RB F1 Team,5,100.0,0
+2026,alpine,Alpine F1 Team,6,68.0,0
+2026,haas,Haas F1 Team,7,30.0,0
+2026,audi,Audi,8,23.0,0
+2026,williams,Williams,9,12.0,0
+2026,aston_martin,Aston Martin,10,7.0,0
+2026,cadillac,Cadillac F1 Team,11,0.0,0

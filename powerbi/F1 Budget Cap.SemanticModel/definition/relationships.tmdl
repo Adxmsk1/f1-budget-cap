@@ -1,0 +1,56 @@
+relationship 02408bc1-b419-4149-923a-80e93df6302c
+	fromColumn: fact_results.season
+	toColumn: dim_season.season
+
+relationship 99dd8276-beef-40df-ae5f-a89bef929553
+	fromColumn: fact_results.driver_id
+	toColumn: dim_driver.driver_id
+
+relationship 1af7aca4-7ef7-421a-b35e-b26e43811f45
+	fromColumn: fact_results.constructor_id
+	toColumn: dim_constructor.constructor_id
+
+relationship 3ad0b10e-db70-4aa4-bb2e-e729e2ffd535
+	fromColumn: fact_qualifying.driver_id
+	toColumn: dim_driver.driver_id
+
+relationship 5360eaaf-aaf7-4f8f-af83-9765e9b7f6dc
+	fromColumn: fact_qualifying.constructor_id
+	toColumn: dim_constructor.constructor_id
+
+relationship ade12e02-13f3-4dbe-9528-6ed1579ea15d
+	fromColumn: fact_pitstops.driver_id
+	toColumn: dim_driver.driver_id
+
+relationship 476a280b-3e73-4cd9-9083-67ce4f06cfd0
+	fromColumn: fact_pitstops.constructor_id
+	toColumn: dim_constructor.constructor_id
+
+relationship 1ddb564e-d91d-4c11-911a-0ef55244bcbb
+	fromColumn: fact_constructor_standings.season
+	toColumn: dim_season.season
+
+relationship cf11d80f-ee4e-4d39-9d43-4f0b54f4922b
+	fromColumn: fact_constructor_standings.constructor_id
+	toColumn: dim_constructor.constructor_id
+
+relationship 7f65e397-8bac-46fe-a322-ff8d31da6e15
+	fromColumn: fact_driver_standings.season
+	toColumn: dim_season.season
+
+relationship bc211d12-9642-47f0-a7da-2df718bd9a37
+	fromColumn: fact_driver_standings.driver_id
+	toColumn: dim_driver.driver_id
+
+relationship 94e10a53-059d-438c-84ca-022595edf9a1
+	fromColumn: fact_driver_standings.constructor_id
+	toColumn: dim_constructor.constructor_id
+
+relationship 3fc5a696-2f65-417d-9c68-2e3d549be901
+	fromColumn: fact_pitstops.season
+	toColumn: dim_season.season
+
+relationship 07a300d4-9f24-4f53-870e-1348f9d563fc
+	fromColumn: fact_qualifying.season
+	toColumn: dim_season.season
+

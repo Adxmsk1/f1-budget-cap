@@ -1,0 +1,165 @@
+table fact_pitstops
+	lineageTag: ec3559da-d7bc-4d28-b41d-9861813aa8e4
+
+	measure 'V Pit Edge' =
+			VAR cPre = CALCULATE([Champion Top-2 Crew Seasons], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE())
+			VAR nPre = CALCULATE(COUNTROWS(VALUES(dim_season[season])), REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE())
+			VAR cPost = CALCULATE([Champion Top-2 Crew Seasons], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE())
+			VAR nPost = CALCULATE(COUNTROWS(VALUES(dim_season[season])), REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE())
+			RETURN cPre & " of " & nPre & "  " & UNICHAR(8594) & "  " & cPost & " of " & nPost
+		lineageTag: 4f7739d2-47cd-4b50-9824-a3d78f2c00f4
+
+	measure 'Pit Has Data' = IF(NOT ISBLANK([Avg Pit Stop Duration (s)]), 1)
+		lineageTag: 19ae1078-6612-4b25-8fab-08cab52b950e
+
+	measure 'Pit Stops Timed' = CALCULATE(COUNTROWS(fact_pitstops), fact_pitstops[duration_sec] < 60)
+		formatString: #,0
+		lineageTag: 2991eac3-6bf6-453d-8085-bd8d8cfc6dc3
+
+	measure 'Fastest Pit Crew' =
+			VAR tbl = FILTER(ADDCOLUMNS(ALL(dim_constructor[constructor_name]), "v", [Avg Pit Stop Duration (s)]), NOT ISBLANK([v]))
+			VAR b = TOPN(1, tbl, [v], ASC, dim_constructor[constructor_name], ASC)
+			RETURN SUBSTITUTE(MAXX(b, dim_constructor[constructor_name]), " F1 Team", "") & " - " & FORMAT(MAXX(b, [v]), "0.00") & "s"
+		lineageTag: ababb00f-e715-4c59-9664-e271363abb7d
+
+	measure 'Slowest Pit Crew' =
+			VAR tbl = FILTER(ADDCOLUMNS(ALL(dim_constructor[constructor_name]), "v", [Avg Pit Stop Duration (s)]), NOT ISBLANK([v]))
+			VAR b = TOPN(1, tbl, [v], DESC, dim_constructor[constructor_name], ASC)
+			RETURN SUBSTITUTE(MAXX(b, dim_constructor[constructor_name]), " F1 Team", "") & " - " & FORMAT(MAXX(b, [v]), "0.00") & "s"
+		lineageTag: 64107d75-03f4-4704-95a3-0a43ab8798a4
+
+	measure 'Pit Crew Gap (s)' =
+			VAR t = FILTER(ADDCOLUMNS(ALL(dim_constructor[constructor_name]), "v", [Avg Pit Stop Duration (s)]), NOT ISBLANK([v]))
+			RETURN IF(HASONEVALUE(dim_season[season]), MAXX(t, [v]) - MINX(t, [v]))
+		formatString: 0.00\s
+		lineageTag: 9ae8e9cf-84f1-4722-a87c-7013200de3e9
+
+	measure 'Avg Pit Crew Gap (s)' = AVERAGEX(VALUES(dim_season[season]), [Pit Crew Gap (s)])
+		formatString: 0.00\s
+		lineageTag: ffd331e6-39f4-49cb-aefa-fa69577ae3fa
+
+	measure 'Champion Pit Rank' =
+			VAR champ = CALCULATE(FIRSTNONBLANK(fact_constructor_standings[constructor_id], 1), fact_constructor_standings[position] = 1, REMOVEFILTERS(dim_constructor))
+			VAR t = FILTER(ADDCOLUMNS(ALL(dim_constructor[constructor_id]), "v", [Avg Pit Stop Duration (s)]), NOT ISBLANK([v]))
+			VAR cv = MAXX(FILTER(t, dim_constructor[constructor_id] = champ), [v])
+			RETURN IF(HASONEVALUE(dim_season[season]) && NOT ISBLANK(cv), COUNTROWS(FILTER(t, [v] < cv)) + 1)
+		formatString: 0
+		lineageTag: 22ef3980-a2b1-48bb-b4a5-f89bb7a609b8
+
+	measure 'Avg Champion Pit Rank' = AVERAGEX(VALUES(dim_season[season]), [Champion Pit Rank])
+		formatString: 0.0
+		lineageTag: 6ccf9049-717d-4f4f-b441-fc8b5eb6ba22
+
+	measure 'Champion Top-2 Crew Seasons' = 0 + COUNTROWS(FILTER(VALUES(dim_season[season]), [Champion Pit Rank] <= 2))
+		formatString: 0
+		lineageTag: 9af88ac4-6a9d-4ac7-aef4-57a2ddff7a43
+
+	measure 'Pit Team Title' = "Average pit stop by team, " & MAX(dim_season[season]) & " - fastest at the top"
+		lineageTag: 4b5350c8-2d3f-4e55-9978-13af2e0eb40c
+
+	measure 'Avg Pit Stop (latest season)' =
+			VAR y = MAX(dim_season[season])
+			RETURN CALCULATE([Avg Pit Stop Duration (s)], dim_season[season] = y)
+		formatString: 0.00
+		lineageTag: 007384fc-1e0f-4a26-b1a8-68570ef4424d
+
+	measure 'Pit Headline' =
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR nPre = CALCULATE(COUNTROWS(VALUES(dim_season[season])), dim_season[is_post_cap] = FALSE())
+			VAR nPost = CALCULATE(COUNTROWS(VALUES(dim_season[season])), dim_season[is_post_cap] = TRUE())
+			VAR cPre = CALCULATE([Champion Top-2 Crew Seasons], dim_season[is_post_cap] = FALSE())
+			VAR cPost = CALCULATE([Champion Top-2 Crew Seasons], dim_season[is_post_cap] = TRUE())
+			RETURN SWITCH(TRUE(),
+			    n = 1, "In " & MIN(dim_season[season]) & " the champions, " & [Champion] & ", had the No. " & [Champion Pit Rank] & " pit crew; the fastest and slowest crews were " & FORMAT([Pit Crew Gap (s)], "0.00") & "s a stop apart.",
+			    nPre > 0 && nPost > 0, "The champion's pit-crew edge has faded: before the cap the champion had a top-two crew in " & cPre & " of " & nPre & " seasons; under it, in " & cPost & " of " & nPost & ".",
+			    "In these seasons the champion had a top-two pit crew in " & [Champion Top-2 Crew Seasons] & " of " & n & ", and the fastest and slowest crews were " & FORMAT([Avg Pit Crew Gap (s)], "0.00") & "s a stop apart.")
+		lineageTag: d0234ee8-1a18-49b1-b691-10382bc8e24d
+
+	measure 'Pit Story' =
+			VAR nl = UNICHAR(10) & UNICHAR(10)
+			VAR preG = CALCULATE([Avg Pit Crew Gap (s)], dim_season[is_post_cap] = FALSE())
+			VAR postG = CALCULATE([Avg Pit Crew Gap (s)], dim_season[is_post_cap] = TRUE())
+			VAR preR = CALCULATE([Avg Champion Pit Rank], dim_season[is_post_cap] = FALSE())
+			VAR postR = CALCULATE([Avg Champion Pit Rank], dim_season[is_post_cap] = TRUE())
+			RETURN
+			    "Why pit stops? A stop is pure operations - people, rehearsal and equipment rather than car design - and most of that spending now counts against the cap. If money bought an operational edge, two things should happen under the cap: the gap between the slickest and slowest crews should narrow, and the richest teams should lose their automatic advantage." & nl &
+			    "Across " & [Selection Seasons Text] & ", the fastest and slowest crews were on average " & FORMAT([Avg Pit Crew Gap (s)], "0.00") & " seconds a stop apart, and the champion's crew ranked " & FORMAT([Avg Champion Pit Rank], "0.0") & " on average (1 = fastest)." & nl &
+			    IF(NOT ISBLANK(preG) && NOT ISBLANK(postG),
+			        "Before the cap the crew gap averaged " & FORMAT(preG, "0.00") & "s and the champion's crew ranked " & FORMAT(preR, "0.0") & "; under it, " & FORMAT(postG, "0.00") & "s and " & FORMAT(postR, "0.0") & ". The field has tightened a little, and half of the cap-era titles were won with only the third- or fourth-best crew - championship-winning operations are no longer something only the biggest budget can buy.",
+			        "Clear the Era slicer to compare these seasons with the other side of 2021.")
+		lineageTag: 61563b34-71b9-439e-8b4a-4d1df009e208
+
+	measure 'Avg Pit Stop Duration (s)' = CALCULATE(AVERAGE(fact_pitstops[duration_sec]), fact_pitstops[duration_sec] < 60)
+		formatString: 0.00
+		lineageTag: 844ef185-7548-40eb-b6e0-86df660d134d
+
+	measure 'Total Pit Stops' = COUNTROWS(fact_pitstops)
+		formatString: #,0
+		lineageTag: 06875e68-ae6c-4304-bec3-57cd06eeb61f
+
+	column season
+		dataType: int64
+		lineageTag: 6318d236-95ec-4698-ae6d-6b9c14f5c6d5
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column round
+		dataType: int64
+		lineageTag: e4e20ff7-0491-49bf-ab24-dc553e8f496b
+		summarizeBy: sum
+		sourceColumn: round
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_id
+		dataType: string
+		lineageTag: 90b30253-1792-4c6b-98bf-355d8a2d406e
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_id
+		dataType: string
+		lineageTag: 11eac310-0e1b-44cb-afea-464d2dac01c3
+		summarizeBy: none
+		sourceColumn: constructor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column lap
+		dataType: int64
+		lineageTag: a5644872-1ebd-4d7b-8232-a70a2ae1ef4b
+		summarizeBy: sum
+		sourceColumn: lap
+
+		annotation SummarizationSetBy = Automatic
+
+	column stop
+		dataType: int64
+		lineageTag: f48735e2-4199-4cf3-a589-30a2836c3c0c
+		summarizeBy: sum
+		sourceColumn: stop
+
+		annotation SummarizationSetBy = Automatic
+
+	column duration_sec
+		dataType: double
+		lineageTag: 5e8252df-9585-4d1f-b86f-6772ae62a7f6
+		summarizeBy: sum
+		sourceColumn: duration_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_pitstops = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\fact_pitstops.csv"), [Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"round", Int64.Type}, {"driver_id", type text}, {"constructor_id", type text}, {"lap", Int64.Type}, {"stop", Int64.Type}, {"duration_sec", type number}})
+				in
+				    #"Changed Type"
+

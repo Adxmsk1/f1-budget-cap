@@ -1,0 +1,282 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+    "name":  "p4_slicer_season",
+    "position":  {
+                     "x":  1060,
+                     "y":  14,
+                     "z":  100,
+                     "width":  200,
+                     "height":  60,
+                     "tabOrder":  100
+                 },
+    "visual":  {
+                   "visualType":  "slicer",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Values":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "dim_season"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "season"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "queryRef":  "dim_season.season",
+                                                                                           "nativeQueryRef":  "season"
+                                                                                       }
+                                                                                   ]
+                                                               }
+                                                }
+                             },
+                   "objects":  {
+                                   "data":  [
+                                                {
+                                                    "properties":  {
+                                                                       "mode":  {
+                                                                                    "expr":  {
+                                                                                                 "Literal":  {
+                                                                                                                 "Value":  "\u0027Dropdown\u0027"
+                                                                                                             }
+                                                                                             }
+                                                                                }
+                                                                   }
+                                                }
+                                            ],
+                                   "header":  [
+                                                  {
+                                                      "properties":  {
+                                                                         "fontColor":  {
+                                                                                           "solid":  {
+                                                                                                         "color":  {
+                                                                                                                       "expr":  {
+                                                                                                                                    "Literal":  {
+                                                                                                                                                    "Value":  "\u0027#5E6470\u0027"
+                                                                                                                                                }
+                                                                                                                                }
+                                                                                                                   }
+                                                                                                     }
+                                                                                       },
+                                                                         "textSize":  {
+                                                                                          "expr":  {
+                                                                                                       "Literal":  {
+                                                                                                                       "Value":  "9D"
+                                                                                                                   }
+                                                                                                   }
+                                                                                      },
+                                                                         "text":  {
+                                                                                      "expr":  {
+                                                                                                   "Literal":  {
+                                                                                                                   "Value":  "\u0027Season\u0027"
+                                                                                                               }
+                                                                                               }
+                                                                                  },
+                                                                         "show":  {
+                                                                                      "expr":  {
+                                                                                                   "Literal":  {
+                                                                                                                   "Value":  "true"
+                                                                                                               }
+                                                                                               }
+                                                                                  }
+                                                                     }
+                                                  }
+                                              ],
+                                   "items":  [
+                                                 {
+                                                     "properties":  {
+                                                                        "textSize":  {
+                                                                                         "expr":  {
+                                                                                                      "Literal":  {
+                                                                                                                      "Value":  "10D"
+                                                                                                                  }
+                                                                                                  }
+                                                                                     },
+                                                                        "fontColor":  {
+                                                                                          "solid":  {
+                                                                                                        "color":  {
+                                                                                                                      "expr":  {
+                                                                                                                                   "Literal":  {
+                                                                                                                                                   "Value":  "\u0027#15151E\u0027"
+                                                                                                                                               }
+                                                                                                                               }
+                                                                                                                  }
+                                                                                                    }
+                                                                                      }
+                                                                    }
+                                                 }
+                                             ]
+                               },
+                   "visualContainerObjects":  {
+                                                  "visualHeader":  [
+                                                                       {
+                                                                           "properties":  {
+                                                                                              "show":  {
+                                                                                                           "expr":  {
+                                                                                                                        "Literal":  {
+                                                                                                                                        "Value":  "false"
+                                                                                                                                    }
+                                                                                                                    }
+                                                                                                       }
+                                                                                          }
+                                                                       }
+                                                                   ],
+                                                  "background":  [
+                                                                     {
+                                                                         "properties":  {
+                                                                                            "color":  {
+                                                                                                          "solid":  {
+                                                                                                                        "color":  {
+                                                                                                                                      "expr":  {
+                                                                                                                                                   "Literal":  {
+                                                                                                                                                                   "Value":  "\u0027#FFFFFF\u0027"
+                                                                                                                                                               }
+                                                                                                                                               }
+                                                                                                                                  }
+                                                                                                                    }
+                                                                                                      },
+                                                                                            "transparency":  {
+                                                                                                                 "expr":  {
+                                                                                                                              "Literal":  {
+                                                                                                                                              "Value":  "0D"
+                                                                                                                                          }
+                                                                                                                          }
+                                                                                                             },
+                                                                                            "show":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "true"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                        }
+                                                                     }
+                                                                 ],
+                                                  "border":  [
+                                                                 {
+                                                                     "properties":  {
+                                                                                        "radius":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "0D"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                        "color":  {
+                                                                                                      "solid":  {
+                                                                                                                    "color":  {
+                                                                                                                                  "expr":  {
+                                                                                                                                               "Literal":  {
+                                                                                                                                                               "Value":  "\u0027#E1E1E6\u0027"
+                                                                                                                                                           }
+                                                                                                                                           }
+                                                                                                                              }
+                                                                                                                }
+                                                                                                  },
+                                                                                        "show":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "true"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                    }
+                                                                 }
+                                                             ],
+                                                  "padding":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "left":  {
+                                                                                                      "expr":  {
+                                                                                                                   "Literal":  {
+                                                                                                                                   "Value":  "8D"
+                                                                                                                               }
+                                                                                                               }
+                                                                                                  },
+                                                                                         "right":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "8D"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                         "bottom":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "4D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    },
+                                                                                         "top":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "4D"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              },
+                   "drillFilterOtherVisuals":  true
+               },
+    "filterConfig":  {
+                         "filters":  [
+                                         {
+                                             "name":  "hasdata",
+                                             "field":  {
+                                                           "Measure":  {
+                                                                           "Expression":  {
+                                                                                              "SourceRef":  {
+                                                                                                                "Entity":  "fact_pitstops"
+                                                                                                            }
+                                                                                          },
+                                                                           "Property":  "Pit Has Data"
+                                                                       }
+                                                       },
+                                             "type":  "Advanced",
+                                             "filter":  {
+                                                            "Where":  [
+                                                                          {
+                                                                              "Condition":  {
+                                                                                                "Not":  {
+                                                                                                            "Expression":  {
+                                                                                                                               "Comparison":  {
+                                                                                                                                                  "Left":  {
+                                                                                                                                                               "Measure":  {
+                                                                                                                                                                               "Expression":  {
+                                                                                                                                                                                                  "SourceRef":  {
+                                                                                                                                                                                                                    "Source":  "m"
+                                                                                                                                                                                                                }
+                                                                                                                                                                                              },
+                                                                                                                                                                               "Property":  "Pit Has Data"
+                                                                                                                                                                           }
+                                                                                                                                                           },
+                                                                                                                                                  "Right":  {
+                                                                                                                                                                "Literal":  {
+                                                                                                                                                                                "Value":  "null"
+                                                                                                                                                                            }
+                                                                                                                                                            },
+                                                                                                                                                  "ComparisonKind":  0
+                                                                                                                                              }
+                                                                                                                           }
+                                                                                                        }
+                                                                                            }
+                                                                          }
+                                                                      ],
+                                                            "From":  [
+                                                                         {
+                                                                             "Name":  "m",
+                                                                             "Entity":  "fact_pitstops",
+                                                                             "Type":  0
+                                                                         }
+                                                                     ],
+                                                            "Version":  2
+                                                        }
+                                         }
+                                     ]
+                     }
+}

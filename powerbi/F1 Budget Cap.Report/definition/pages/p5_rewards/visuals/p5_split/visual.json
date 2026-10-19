@@ -1,0 +1,1317 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+    "name":  "p5_split",
+    "position":  {
+                     "x":  20,
+                     "y":  186,
+                     "z":  1500,
+                     "width":  600,
+                     "height":  245,
+                     "tabOrder":  1500
+                 },
+    "visual":  {
+                   "visualType":  "hundredPercentStackedColumnChart",
+                   "query":  {
+                                 "queryState":  {
+                                                    "Y":  {
+                                                              "projections":  [
+                                                                                  {
+                                                                                      "field":  {
+                                                                                                    "Measure":  {
+                                                                                                                    "Expression":  {
+                                                                                                                                       "SourceRef":  {
+                                                                                                                                                         "Entity":  "fact_constructor_standings"
+                                                                                                                                                     }
+                                                                                                                                   },
+                                                                                                                    "Property":  "Constructor Championship Points"
+                                                                                                                }
+                                                                                                },
+                                                                                      "queryRef":  "fact_constructor_standings.Constructor Championship Points",
+                                                                                      "nativeQueryRef":  "Constructor Championship Points",
+                                                                                      "displayName":  "Points"
+                                                                                  }
+                                                                              ]
+                                                          },
+                                                    "Category":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Column":  {
+                                                                                                                          "Expression":  {
+                                                                                                                                             "SourceRef":  {
+                                                                                                                                                               "Entity":  "dim_season"
+                                                                                                                                                           }
+                                                                                                                                         },
+                                                                                                                          "Property":  "season"
+                                                                                                                      }
+                                                                                                       },
+                                                                                             "queryRef":  "dim_season.season",
+                                                                                             "nativeQueryRef":  "season",
+                                                                                             "displayName":  "Season"
+                                                                                         }
+                                                                                     ]
+                                                                 },
+                                                    "Series":  {
+                                                                   "projections":  [
+                                                                                       {
+                                                                                           "field":  {
+                                                                                                         "Column":  {
+                                                                                                                        "Expression":  {
+                                                                                                                                           "SourceRef":  {
+                                                                                                                                                             "Entity":  "dim_constructor"
+                                                                                                                                                         }
+                                                                                                                                       },
+                                                                                                                        "Property":  "constructor_name"
+                                                                                                                    }
+                                                                                                     },
+                                                                                           "queryRef":  "dim_constructor.constructor_name",
+                                                                                           "nativeQueryRef":  "constructor_name",
+                                                                                           "displayName":  "Team"
+                                                                                       }
+                                                                                   ]
+                                                               },
+                                                    "Tooltips":  {
+                                                                     "projections":  [
+                                                                                         {
+                                                                                             "field":  {
+                                                                                                           "Measure":  {
+                                                                                                                           "Expression":  {
+                                                                                                                                              "SourceRef":  {
+                                                                                                                                                                "Entity":  "fact_constructor_standings"
+                                                                                                                                                            }
+                                                                                                                                          },
+                                                                                                                           "Property":  "Team Points Share"
+                                                                                                                       }
+                                                                                                       },
+                                                                                             "queryRef":  "fact_constructor_standings.Team Points Share",
+                                                                                             "nativeQueryRef":  "Team Points Share",
+                                                                                             "displayName":  "Share of the season\u0027s points"
+                                                                                         }
+                                                                                     ]
+                                                                 }
+                                                },
+                                 "sortDefinition":  {
+                                                        "sort":  [
+                                                                     {
+                                                                         "field":  {
+                                                                                       "Column":  {
+                                                                                                      "Expression":  {
+                                                                                                                         "SourceRef":  {
+                                                                                                                                           "Entity":  "dim_season"
+                                                                                                                                       }
+                                                                                                                     },
+                                                                                                      "Property":  "season"
+                                                                                                  }
+                                                                                   },
+                                                                         "direction":  "Ascending"
+                                                                     }
+                                                                 ],
+                                                        "isDefaultSort":  true
+                                                    }
+                             },
+                   "objects":  {
+                                   "legend":  [
+                                                  {
+                                                      "properties":  {
+                                                                         "show":  {
+                                                                                      "expr":  {
+                                                                                                   "Literal":  {
+                                                                                                                   "Value":  "false"
+                                                                                                               }
+                                                                                               }
+                                                                                  }
+                                                                     }
+                                                  }
+                                              ],
+                                   "dataPoint":  [
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Williams\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#005AFF\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027AlphaTauri\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#2B4562\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027RB F1 Team\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#6692FF\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Cadillac F1 Team\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#3A3A3A\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Sauber\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#2BB24C\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Alpine F1 Team\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#0093CC\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Force India\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#F596C8\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Caterham\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#0B6B3A\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Manor Marussia\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#6E0000\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Racing Point\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#F596C8\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Marussia\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#6E0000\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Renault\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#FFD800\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Red Bull\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#3671C6\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Alfa Romeo\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#B12039\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Mercedes\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#27F4D2\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Aston Martin\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#229971\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027McLaren\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#FF8000\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Toro Rosso\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#469BFF\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Ferrari\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#E8002D\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Haas F1 Team\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#B6BABD\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Lotus F1\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#B59410\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     },
+                                                     {
+                                                         "selector":  {
+                                                                          "data":  [
+                                                                                       {
+                                                                                           "scopeId":  {
+                                                                                                           "Comparison":  {
+                                                                                                                              "Left":  {
+                                                                                                                                           "Column":  {
+                                                                                                                                                          "Expression":  {
+                                                                                                                                                                             "SourceRef":  {
+                                                                                                                                                                                               "Entity":  "dim_constructor"
+                                                                                                                                                                                           }
+                                                                                                                                                                         },
+                                                                                                                                                          "Property":  "constructor_name"
+                                                                                                                                                      }
+                                                                                                                                       },
+                                                                                                                              "Right":  {
+                                                                                                                                            "Literal":  {
+                                                                                                                                                            "Value":  "\u0027Audi\u0027"
+                                                                                                                                                        }
+                                                                                                                                        },
+                                                                                                                              "ComparisonKind":  0
+                                                                                                                          }
+                                                                                                       }
+                                                                                       }
+                                                                                   ]
+                                                                      },
+                                                         "properties":  {
+                                                                            "fill":  {
+                                                                                         "solid":  {
+                                                                                                       "color":  {
+                                                                                                                     "expr":  {
+                                                                                                                                  "Literal":  {
+                                                                                                                                                  "Value":  "\u0027#6E6E6E\u0027"
+                                                                                                                                              }
+                                                                                                                              }
+                                                                                                                 }
+                                                                                                   }
+                                                                                     }
+                                                                        }
+                                                     }
+                                                 ],
+                                   "labels":  [
+                                                  {
+                                                      "properties":  {
+                                                                         "show":  {
+                                                                                      "expr":  {
+                                                                                                   "Literal":  {
+                                                                                                                   "Value":  "false"
+                                                                                                               }
+                                                                                               }
+                                                                                  }
+                                                                     }
+                                                  }
+                                              ],
+                                   "categoryAxis":  [
+                                                        {
+                                                            "properties":  {
+                                                                               "labelColor":  {
+                                                                                                  "solid":  {
+                                                                                                                "color":  {
+                                                                                                                              "expr":  {
+                                                                                                                                           "Literal":  {
+                                                                                                                                                           "Value":  "\u0027#15151E\u0027"
+                                                                                                                                                       }
+                                                                                                                                       }
+                                                                                                                          }
+                                                                                                            }
+                                                                                              },
+                                                                               "axisType":  {
+                                                                                                "expr":  {
+                                                                                                             "Literal":  {
+                                                                                                                             "Value":  "\u0027Categorical\u0027"
+                                                                                                                         }
+                                                                                                         }
+                                                                                            },
+                                                                               "fontSize":  {
+                                                                                                "expr":  {
+                                                                                                             "Literal":  {
+                                                                                                                             "Value":  "9D"
+                                                                                                                         }
+                                                                                                         }
+                                                                                            },
+                                                                               "showAxisTitle":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "false"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 },
+                                                                               "show":  {
+                                                                                            "expr":  {
+                                                                                                         "Literal":  {
+                                                                                                                         "Value":  "true"
+                                                                                                                     }
+                                                                                                     }
+                                                                                        }
+                                                                           }
+                                                        }
+                                                    ],
+                                   "valueAxis":  [
+                                                     {
+                                                         "properties":  {
+                                                                            "start":  {
+                                                                                          "expr":  {
+                                                                                                       "Literal":  {
+                                                                                                                       "Value":  "0D"
+                                                                                                                   }
+                                                                                                   }
+                                                                                      },
+                                                                            "showAxisTitle":  {
+                                                                                                  "expr":  {
+                                                                                                               "Literal":  {
+                                                                                                                               "Value":  "false"
+                                                                                                                           }
+                                                                                                           }
+                                                                                              },
+                                                                            "gridlineColor":  {
+                                                                                                  "solid":  {
+                                                                                                                "color":  {
+                                                                                                                              "expr":  {
+                                                                                                                                           "Literal":  {
+                                                                                                                                                           "Value":  "\u0027#E1E1E6\u0027"
+                                                                                                                                                       }
+                                                                                                                                       }
+                                                                                                                          }
+                                                                                                            }
+                                                                                              },
+                                                                            "show":  {
+                                                                                         "expr":  {
+                                                                                                      "Literal":  {
+                                                                                                                      "Value":  "true"
+                                                                                                                  }
+                                                                                                  }
+                                                                                     },
+                                                                            "labelColor":  {
+                                                                                               "solid":  {
+                                                                                                             "color":  {
+                                                                                                                           "expr":  {
+                                                                                                                                        "Literal":  {
+                                                                                                                                                        "Value":  "\u0027#5E6470\u0027"
+                                                                                                                                                    }
+                                                                                                                                    }
+                                                                                                                       }
+                                                                                                         }
+                                                                                           },
+                                                                            "fontSize":  {
+                                                                                             "expr":  {
+                                                                                                          "Literal":  {
+                                                                                                                          "Value":  "9D"
+                                                                                                                      }
+                                                                                                      }
+                                                                                         },
+                                                                            "end":  {
+                                                                                        "expr":  {
+                                                                                                     "Literal":  {
+                                                                                                                     "Value":  "1D"
+                                                                                                                 }
+                                                                                                 }
+                                                                                    },
+                                                                            "gridlineShow":  {
+                                                                                                 "expr":  {
+                                                                                                              "Literal":  {
+                                                                                                                              "Value":  "true"
+                                                                                                                          }
+                                                                                                          }
+                                                                                             }
+                                                                        }
+                                                     }
+                                                 ]
+                               },
+                   "visualContainerObjects":  {
+                                                  "title":  [
+                                                                {
+                                                                    "properties":  {
+                                                                                       "bold":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "fontColor":  {
+                                                                                                         "solid":  {
+                                                                                                                       "color":  {
+                                                                                                                                     "expr":  {
+                                                                                                                                                  "Literal":  {
+                                                                                                                                                                  "Value":  "\u0027#15151E\u0027"
+                                                                                                                                                              }
+                                                                                                                                              }
+                                                                                                                                 }
+                                                                                                                   }
+                                                                                                     },
+                                                                                       "fontSize":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "12D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    },
+                                                                                       "text":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "\u0027Each season\u0027\u0027s points, split by team (hover for team and share)\u0027"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                },
+                                                                                       "show":  {
+                                                                                                    "expr":  {
+                                                                                                                 "Literal":  {
+                                                                                                                                 "Value":  "true"
+                                                                                                                             }
+                                                                                                             }
+                                                                                                }
+                                                                                   }
+                                                                }
+                                                            ],
+                                                  "background":  [
+                                                                     {
+                                                                         "properties":  {
+                                                                                            "color":  {
+                                                                                                          "solid":  {
+                                                                                                                        "color":  {
+                                                                                                                                      "expr":  {
+                                                                                                                                                   "Literal":  {
+                                                                                                                                                                   "Value":  "\u0027#FFFFFF\u0027"
+                                                                                                                                                               }
+                                                                                                                                               }
+                                                                                                                                  }
+                                                                                                                    }
+                                                                                                      },
+                                                                                            "transparency":  {
+                                                                                                                 "expr":  {
+                                                                                                                              "Literal":  {
+                                                                                                                                              "Value":  "0D"
+                                                                                                                                          }
+                                                                                                                          }
+                                                                                                             },
+                                                                                            "show":  {
+                                                                                                         "expr":  {
+                                                                                                                      "Literal":  {
+                                                                                                                                      "Value":  "true"
+                                                                                                                                  }
+                                                                                                                  }
+                                                                                                     }
+                                                                                        }
+                                                                     }
+                                                                 ],
+                                                  "visualHeader":  [
+                                                                       {
+                                                                           "properties":  {
+                                                                                              "show":  {
+                                                                                                           "expr":  {
+                                                                                                                        "Literal":  {
+                                                                                                                                        "Value":  "false"
+                                                                                                                                    }
+                                                                                                                    }
+                                                                                                       }
+                                                                                          }
+                                                                       }
+                                                                   ],
+                                                  "border":  [
+                                                                 {
+                                                                     "properties":  {
+                                                                                        "radius":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "0D"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                        "color":  {
+                                                                                                      "solid":  {
+                                                                                                                    "color":  {
+                                                                                                                                  "expr":  {
+                                                                                                                                               "Literal":  {
+                                                                                                                                                               "Value":  "\u0027#E1E1E6\u0027"
+                                                                                                                                                           }
+                                                                                                                                           }
+                                                                                                                              }
+                                                                                                                }
+                                                                                                  },
+                                                                                        "show":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "true"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                    }
+                                                                 }
+                                                             ],
+                                                  "padding":  [
+                                                                  {
+                                                                      "properties":  {
+                                                                                         "left":  {
+                                                                                                      "expr":  {
+                                                                                                                   "Literal":  {
+                                                                                                                                   "Value":  "12.0D"
+                                                                                                                               }
+                                                                                                               }
+                                                                                                  },
+                                                                                         "right":  {
+                                                                                                       "expr":  {
+                                                                                                                    "Literal":  {
+                                                                                                                                    "Value":  "12.0D"
+                                                                                                                                }
+                                                                                                                }
+                                                                                                   },
+                                                                                         "bottom":  {
+                                                                                                        "expr":  {
+                                                                                                                     "Literal":  {
+                                                                                                                                     "Value":  "10D"
+                                                                                                                                 }
+                                                                                                                 }
+                                                                                                    },
+                                                                                         "top":  {
+                                                                                                     "expr":  {
+                                                                                                                  "Literal":  {
+                                                                                                                                  "Value":  "10D"
+                                                                                                                              }
+                                                                                                              }
+                                                                                                 }
+                                                                                     }
+                                                                  }
+                                                              ]
+                                              },
+                   "drillFilterOtherVisuals":  true
+               }
+}

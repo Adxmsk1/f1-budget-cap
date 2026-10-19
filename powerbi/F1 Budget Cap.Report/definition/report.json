@@ -1,0 +1,28 @@
+{
+    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.0.0/schema.json",
+    "themeCollection":  {
+
+                        },
+    "resourcePackages":  [
+                             {
+                                 "name":  "RegisteredResources",
+                                 "type":  "RegisteredResources",
+                                 "items":  [
+                                               {
+                                                   "name":  "f1_band.png",
+                                                   "path":  "f1_band.png",
+                                                   "type":  "Image"
+                                               },
+                                               {
+                                                   "name":  "f1_cover.png",
+                                                   "path":  "f1_cover.png",
+                                                   "type":  "Image"
+                                               }
+                                           ]
+                             }
+                         ],
+    "settings":  {
+                     "useStylableVisualContainerHeader":  true,
+                     "useEnhancedTooltips":  true
+                 }
+}

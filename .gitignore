@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.duckdb
+*.duckdb.wal
+
+# power bi local settings
+**/.pbi/localSettings.json

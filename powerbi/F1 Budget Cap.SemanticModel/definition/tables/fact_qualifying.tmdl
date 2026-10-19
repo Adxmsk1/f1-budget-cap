@@ -1,0 +1,169 @@
+table fact_qualifying
+	lineageTag: 69661f55-cd3e-46a9-8df3-fdda57046a19
+
+	measure 'Qualifying Spread %' =
+			CALCULATE(
+			    AVERAGEX(
+			        SUMMARIZE(fact_qualifying, fact_qualifying[season], fact_qualifying[round]),
+			        VAR teams = ADDCOLUMNS(CALCULATETABLE(VALUES(fact_qualifying[constructor_id])), "best", CALCULATE(MIN(fact_qualifying[best_sec]), fact_qualifying[best_sec] < 1000))
+			        VAR f = MINX(teams, [best])
+			        VAR s = MAXX(teams, [best])
+			        RETURN DIVIDE(s - f, f)),
+			    REMOVEFILTERS(dim_constructor))
+		formatString: 0.00%
+		lineageTag: 5d827233-2513-45fd-a94d-bb9dd72ac8ad
+
+	measure 'V Pace Gap' = FORMAT(CALCULATE([Qualifying Spread %], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = FALSE()), "0.00%") & "  " & UNICHAR(8594) & "  " & FORMAT(CALCULATE([Qualifying Spread %], REMOVEFILTERS(dim_season), dim_season[is_post_cap] = TRUE()), "0.00%")
+		lineageTag: 7265d2bd-e1d7-48a4-ba61-58e7e8f80e1f
+
+	measure 'Pre-Cap Avg Qualifying Spread' = CALCULATE([Qualifying Spread %], dim_season[is_post_cap] = FALSE())
+		formatString: 0.00%
+		lineageTag: 5c2cb0bf-cb16-4732-99dd-e7e237ce1c5f
+
+	measure 'Post-Cap Avg Qualifying Spread' = CALCULATE([Qualifying Spread %], dim_season[is_post_cap] = TRUE())
+		formatString: 0.00%
+		lineageTag: 668cc302-292d-422b-9abb-b8c12e24ae34
+
+	measure 'Pace Spread Seconds' = FORMAT([Qualifying Spread %] * 90, "0.0") & "s per lap"
+		lineageTag: fd0f9327-fef0-49fa-bb11-1e0830f6bf63
+
+	measure 'Tightest Qualifying Season' =
+			VAR t = FILTER(ADDCOLUMNS(VALUES(dim_season[season]), "q", [Qualifying Spread %]), NOT ISBLANK([q]))
+			VAR b = TOPN(1, t, [q], ASC, dim_season[season], DESC)
+			RETURN MAXX(b, dim_season[season]) & ": " & FORMAT(MAXX(b, [q]), "0.00%")
+		lineageTag: af4cc8ad-a548-44bd-b526-0dfab1fa62aa
+
+	measure 'Team Quali Gap %' =
+			CALCULATE(
+			    AVERAGEX(SUMMARIZE(fact_qualifying, fact_qualifying[season], fact_qualifying[round]),
+			        VAR tb = CALCULATE(MIN(fact_qualifying[best_sec]), fact_qualifying[best_sec] < 1000)
+			        VAR fb = CALCULATE(MIN(fact_qualifying[best_sec]), fact_qualifying[best_sec] < 1000, REMOVEFILTERS(dim_constructor))
+			        RETURN DIVIDE(tb - fb, fb)))
+		formatString: 0.00%
+		lineageTag: 9a0e885e-1bad-4607-97c8-c61e75db179d
+
+	measure 'Team Quali Gap (latest season)' =
+			VAR y = MAX(dim_season[season])
+			RETURN CALCULATE([Team Quali Gap %], dim_season[season] = y)
+		formatString: 0.00%
+		lineageTag: 862aab10-9000-4131-860b-87903bc44737
+
+	measure 'Fastest Team On Average' =
+			VAR t = FILTER(ADDCOLUMNS(ALL(dim_constructor[constructor_name]), "g", [Team Quali Gap %]), NOT ISBLANK([g]))
+			VAR b = TOPN(1, t, [g], ASC, dim_constructor[constructor_name], ASC)
+			RETURN SUBSTITUTE(MAXX(b, dim_constructor[constructor_name]), " F1 Team", "") & ": " & FORMAT(MAXX(b, [g]), "0.00%") & " off"
+		lineageTag: ac131345-f8e5-44fc-b74e-412bb7b4bc82
+
+	measure 'Pace Team Title' = "Each team's average qualifying gap to the fastest car, " & MAX(dim_season[season]) & " (team colours)"
+		lineageTag: c8178654-8811-4022-881a-229a5db8fac0
+
+	measure 'Pace Headline' =
+			VAR n = COUNTROWS(VALUES(dim_season[season]))
+			VAR preQ = [Pre-Cap Avg Qualifying Spread]
+			VAR postQ = [Post-Cap Avg Qualifying Spread]
+			VAR q = [Qualifying Spread %]
+			RETURN SWITCH(TRUE(),
+			    n = 1, "In " & MIN(dim_season[season]) & " the slowest team qualified " & FORMAT(q, "0.00%") & " - about " & FORMAT(q * 90, "0.0") & " seconds a lap - behind the fastest.",
+			    NOT ISBLANK(preQ) && NOT ISBLANK(postQ), "The clearest change: the slowest team's qualifying deficit shrank from " & FORMAT(preQ, "0.00%") & " to " & FORMAT(postQ, "0.00%") & " of a lap - roughly " & FORMAT(preQ * 90, "0.0") & "s to " & FORMAT(postQ * 90, "0.0") & "s on a 90-second lap.",
+			    "In these seasons the slowest team qualified " & FORMAT(q, "0.00%") & " - about " & FORMAT(q * 90, "0.0") & " seconds a lap - behind the fastest.")
+		lineageTag: 247902c3-ea35-484d-bf6a-ff95af274183
+
+	measure 'Pace Story' =
+			VAR nl = UNICHAR(10) & UNICHAR(10)
+			VAR preQ = [Pre-Cap Avg Qualifying Spread]
+			VAR postQ = [Post-Cap Avg Qualifying Spread]
+			VAR has26 = CONTAINS(VALUES(dim_season[season]), dim_season[season], 2026)
+			RETURN
+			    "Results depend on reliability, strategy and luck, but qualifying is the purest test of car speed: every team does its fastest possible lap, on the same track, on the same day. If the cap stopped rich teams buying extra performance, the field's pace should bunch up." & nl &
+			    "Across " & [Selection Seasons Text] & ", the slowest team was on average " & FORMAT([Qualifying Spread %], "0.00%") & " slower than the fastest - about " & FORMAT([Qualifying Spread %] * 90, "0.0") & " seconds on a 90-second lap. The tightest season was " & [Tightest Qualifying Season] & "." &
+			    IF(NOT ISBLANK(preQ) && NOT ISBLANK(postQ), " That gap fell by about " & FORMAT(1 - DIVIDE(postQ, preQ), "0%") & " once the cap arrived.", "") & nl &
+			    "One caution: 2022 also brought the biggest technical rule change in decades, designed to let cars race closely. The cap and the new rules pushed in the same direction, so their effects cannot be fully separated." &
+			    IF(has26, " 2026 brought another rule overhaul and a brand-new team, Cadillac, which is why the gap jumped back up.", "")
+		lineageTag: 48a9af86-a50f-4b8a-9b72-65d692be0684
+
+	measure 'Avg Best Qualifying Lap (s)' = AVERAGE(fact_qualifying[best_sec])
+		formatString: 0.000
+		lineageTag: 1c7b93ac-a181-432a-8d60-3be194bb382c
+
+	column season
+		dataType: int64
+		lineageTag: a0245d0c-e146-4eeb-9f26-d4269cc8809e
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column round
+		dataType: int64
+		lineageTag: 5c0f1365-08dd-490f-a932-a4b2ba1c29bf
+		summarizeBy: sum
+		sourceColumn: round
+
+		annotation SummarizationSetBy = Automatic
+
+	column driver_id
+		dataType: string
+		lineageTag: 6eaf366a-5e19-42c7-ad41-3901df4b9445
+		summarizeBy: none
+		sourceColumn: driver_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column constructor_id
+		dataType: string
+		lineageTag: 9acc55a6-cf61-413c-b2dc-152f0a179179
+		summarizeBy: none
+		sourceColumn: constructor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column position
+		dataType: int64
+		lineageTag: 2efe7b26-3ef6-48e9-8b61-94b046037349
+		summarizeBy: sum
+		sourceColumn: position
+
+		annotation SummarizationSetBy = Automatic
+
+	column q1_sec
+		dataType: double
+		lineageTag: 88606ee1-d22f-4b2e-8d8d-f18fbbbd01d2
+		summarizeBy: sum
+		sourceColumn: q1_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	column q2_sec
+		dataType: double
+		lineageTag: 0a05f310-1c43-4b64-ab16-df0cfa2dded7
+		summarizeBy: sum
+		sourceColumn: q2_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	column q3_sec
+		dataType: double
+		lineageTag: 524fbfef-7dbb-4a2e-a062-5058385b7109
+		summarizeBy: sum
+		sourceColumn: q3_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	column best_sec
+		dataType: double
+		lineageTag: d81f063a-7f81-4c70-ada3-94c59299ddc7
+		summarizeBy: sum
+		sourceColumn: best_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_qualifying = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\fact_qualifying.csv"), [Delimiter=",", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"round", Int64.Type}, {"driver_id", type text}, {"constructor_id", type text}, {"position", Int64.Type}, {"q1_sec", type number}, {"q2_sec", type number}, {"q3_sec", type number}, {"best_sec", type number}})
+				in
+				    #"Changed Type"
+

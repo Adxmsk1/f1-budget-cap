@@ -1,0 +1,56 @@
+table dim_season
+	lineageTag: 8ac62672-6aab-4fd3-b141-9a0f6458d2bc
+
+	column season
+		dataType: int64
+		lineageTag: 5aa50c8b-b680-4387-b9dc-499ba817d257
+		summarizeBy: sum
+		sourceColumn: season
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_post_cap
+		dataType: boolean
+		lineageTag: be1c4354-0fbe-4657-aa31-ec1a10318a50
+		summarizeBy: none
+		sourceColumn: is_post_cap
+
+		annotation SummarizationSetBy = Automatic
+
+	column cap_usd_m
+		dataType: double
+		lineageTag: 72f29a66-1d54-4c3e-a76f-6942317a97d4
+		summarizeBy: sum
+		sourceColumn: cap_usd_m
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_races
+		dataType: int64
+		lineageTag: 82c9f9aa-99fd-46ea-a9c9-fc050541429f
+		summarizeBy: sum
+		sourceColumn: num_races
+
+		annotation SummarizationSetBy = Automatic
+
+	column era_sort = IF(dim_season[is_post_cap], 2, 1)
+		dataType: int64
+		lineageTag: ea18e7a5-fcc3-42af-ae7b-b9d2f3b1e914
+		summarizeBy: none
+
+	column era = IF(dim_season[is_post_cap], "Post-cap (2021-26)", "Pre-cap (2014-20)")
+		dataType: string
+		lineageTag: e41268c5-f8d2-4321-9721-656ea73032ca
+		summarizeBy: none
+		sortByColumn: era_sort
+
+	partition dim_season = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Projects\f1-budget-cap\data\processed\dim_season.csv"), [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"season", Int64.Type}, {"is_post_cap", type logical}, {"cap_usd_m", type number}, {"num_races", Int64.Type}})
+				in
+				    #"Changed Type"
+
