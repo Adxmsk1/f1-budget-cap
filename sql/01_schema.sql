@@ -44,7 +44,7 @@ select
     s.is_post_cap, s.cap_usd_m
 from results r
 join dim_season s using (season)
-where position_order is not null;  -- excludes DNS/DNQ entries with no classified finish
+where position_order is not null;  -- classified finishers only: drops retirements, DNS and DSQ (no finishing position)
 
 create or replace view constructor_season_share as
 select

@@ -46,7 +46,7 @@ One row per stop.
 |---|---|---|
 | season, round, driver_id, constructor_id | | |
 | lap, stop | int | lap number, and which stop it was for that driver |
-| duration_sec | float | a few (e.g. 2016 Australian GP) come through as M:SS.sss and get converted. Two (Kvyat round 7 and Vettel round 12, both 2016) have no time in the source and are left blank |
+| duration_sec | float | a few (e.g. 2016 Australian GP) come through as M:SS.sss and get converted. Nine stops between 2016 and 2025 have no time in the source and are left blank (the data checks flag it if this goes above 10) |
 
 Stops of 60 seconds or more are left out of the pit crew comparison (but kept in this file) - at that length it's a
 penalty or a repair, not a tyre change.
