@@ -151,6 +151,10 @@ python scripts/export_chart_previews.py   # matplotlib previews in output/chart_
 The Power BI report needs Power BI Desktop on Windows - see [`powerbi/README.md`](powerbi/README.md). Screenshots of
 every page are in [`output/powerbi_exports/`](output/powerbi_exports/).
 
+## Use of AI
+
+Where AI helped on this project is set out in [`AI_USAGE.md`](AI_USAGE.md).
+
 ## Other projects
 
 - [Ibiza tourism economics](https://github.com/Adxmsk1/ibiza-tourism-economics) - Spain's INE statistics API, DuckDB
