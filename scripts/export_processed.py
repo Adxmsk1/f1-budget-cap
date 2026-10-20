@@ -1,8 +1,10 @@
-# star schema out of f1.duckdb into data/processed - the csvs power bi loads
+# star schema out of f1.duckdb into data/processed - the csvs power bi loads.
+# every query has an order by so re-running gives identical files (and a clean git diff)
 
 from pathlib import Path
 
 import duckdb
+import pandas as pd
 
 DB_PATH = Path("f1.duckdb")
 OUT_DIR = Path("data/processed")
@@ -12,15 +14,17 @@ def main():
     con = duckdb.connect(str(DB_PATH), read_only=True)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    con.execute("select * from dim_season").df().to_csv(OUT_DIR / "dim_season.csv", index=False)
+    con.execute("select * from dim_season order by season").df().to_csv(OUT_DIR / "dim_season.csv", index=False)
 
     con.execute("""
         select distinct driver_id, driver_code, driver_name
         from results where driver_id is not null
+        order by driver_id
     """).df().to_csv(OUT_DIR / "dim_driver.csv", index=False)
 
     con.execute("""
         select distinct constructor_id, constructor_name from results
+        order by constructor_id
     """).df().to_csv(OUT_DIR / "dim_constructor.csv", index=False)
 
     con.execute("""
@@ -33,32 +37,36 @@ def main():
                points, status, places_gained, fastest_lap_time as fastest_lap_text,
                is_post_cap
         from fact_results
+        order by season, round, position_order
     """).df().to_csv(OUT_DIR / "fact_results.csv", index=False)
 
     con.execute("""
         select season, round, driver_id, constructor_id, position,
                q1_sec, q2_sec, q3_sec, best_sec
         from qualifying_clean
+        order by season, round, position
     """).df().to_csv(OUT_DIR / "fact_qualifying.csv", index=False)
 
     con.execute("""
         select p.season, p.round, p.driver_id, r.constructor_id, p.lap, p.stop, p.duration_sec
         from pitstops p
         join results r using (season, round, driver_id)
+        order by p.season, p.round, p.driver_id, p.stop
     """).df().to_csv(OUT_DIR / "fact_pitstops.csv", index=False)
 
     con.execute("""
         select season, constructor_id, constructor_name, position, points, wins
         from constructor_standings
+        order by season, position nulls last, constructor_id
     """).df().to_csv(OUT_DIR / "fact_constructor_standings.csv", index=False)
 
     con.execute("""
         select season, driver_id, constructor_id, position, points, wins
         from driver_standings
+        order by season, position nulls last, driver_id
     """).df().to_csv(OUT_DIR / "fact_driver_standings.csv", index=False)
 
     for f in sorted(OUT_DIR.glob("*.csv")):
-        import pandas as pd
         n = len(pd.read_csv(f))
         print(f"{f.name}: {n:,} rows")
 

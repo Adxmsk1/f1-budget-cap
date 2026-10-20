@@ -1,23 +1,23 @@
 constructor_id,constructor_name
-williams,Williams
-alphatauri,AlphaTauri
-rb,RB F1 Team
-cadillac,Cadillac F1 Team
-sauber,Sauber
-alpine,Alpine F1 Team
-force_india,Force India
-caterham,Caterham
-manor,Manor Marussia
-racing_point,Racing Point
-marussia,Marussia
-renault,Renault
-red_bull,Red Bull
 alfa,Alfa Romeo
-mercedes,Mercedes
+alphatauri,AlphaTauri
+alpine,Alpine F1 Team
 aston_martin,Aston Martin
-mclaren,McLaren
-toro_rosso,Toro Rosso
+audi,Audi
+cadillac,Cadillac F1 Team
+caterham,Caterham
 ferrari,Ferrari
+force_india,Force India
 haas,Haas F1 Team
 lotus_f1,Lotus F1
-audi,Audi
+manor,Manor Marussia
+marussia,Marussia
+mclaren,McLaren
+mercedes,Mercedes
+racing_point,Racing Point
+rb,RB F1 Team
+red_bull,Red Bull
+renault,Renault
+sauber,Sauber
+toro_rosso,Toro Rosso
+williams,Williams
