@@ -1,0 +1,2 @@
+# count the SQL in the language stats (GitHub treats .sql files as data by default)
+*.sql linguist-detectable=true

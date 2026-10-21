@@ -12,6 +12,9 @@ the grid hasn't really moved.
 
 ![Who can win](output/powerbi_exports/03_who_can_win.png)
 
+**Built with:** Python (requests, pandas, matplotlib) - SQL in DuckDB - pytest - Power BI (DAX measures, with the
+model and pages saved as TMDL and PBIR) - PowerShell scripts that build and save the Power BI report.
+
 ## About me
 
 I'm Adam, an Insight and Intelligence Analyst at the London Borough of Barnet, where I look after the Power BI
